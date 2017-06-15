@@ -17,6 +17,7 @@ PREDICT_URL = "http://192.168.0.66:8000/predict/"
 USER_ID = 1
 PASSWORD = "random"
 imagepath = "/home/pi/ghfarm/images/"
+crop_offline = "/home/pi/ghfarm/crop_offline.txt"
 
 
 #address constant for lines in lcd display
@@ -28,7 +29,7 @@ LINE_4 = 0xD4
 LINES = [LINE_1,LINE_2,LINE_3,LINE_4]
 
 #Global Variables
-min_weight = 10
+min_weight = 0
 baseValue = 0	#variable to store the base value of load cell
 taredWeight = 0	#variable to store tared weight
 DOUT = 22	#constant stores gpio pin used by dout pin of hx711. It will be used to check if hx711 is ready to send data or not
@@ -83,7 +84,8 @@ def tare():
 
 # Take a picture of the Crop from the webcam
 def takePicture():
-	lcd.string("Taking picture...", LINE_2)
+	lcd.clear()
+	lcd.string("Taking picture...", LINE_1)
 	if os.path.exists('/dev/video0'):
 		#create image file name with current date
 		imgName = "image-"+ datetime.datetime.now().isoformat()+str(USER_ID)+".jpg"
@@ -111,7 +113,8 @@ def storeData(data):
 	crops = {'weight':data['weight'],'crop_id':data['crop_id'],'time': t, 'imagename':data['imagename'], 'troughid':data['troughid']}
 	crop_details = json.dumps(crops)
 	f.write(crop_details +'\n')
-	time.sleep(2)
+	time.sleep(0.5)
+	print("Done")
 
 
 def validateCropID():
@@ -120,50 +123,58 @@ def validateCropID():
 
 # Accept a valid crop id as input from the keypad
 def acceptCropID():
-	lcd.clear()
-	cropID = ""
-	key = ""
-	time.sleep(0.1)
-
-	lcd.string(" Enter Crop ID  ", LINE_1)
-	lcd.string("  *- continue   ", LINE_2)
-	lcd.string("#- clear,D- back", LINE_3)
-	#loop until some crop id is entered and * key is pressed. Following loop will run until valid crop id entered
-	while True:
-		while  key != "*":
-			lcd.string(cropID, LINE_4)
-			key = kpad.get_key()
-			if key == '*':
-				if len(cropID) == 0:
-					lcd.clear()
-					lcd.string("Crop ID cant", LINE_1)
-					lcd.string("be null", LINE_2)
-					time.sleep(1)
-					lcd.clear()
-					lcd.string(" Enter Crop ID  ", LINE_1)
-					lcd.string("  *- continue   ", LINE_2)
-					lcd.string("#- clear,D- back", LINE_3)
-				else:
-					break
-			elif key == '#':  #for backspacing
-				if len(cropID) > 0:
-					cropID = cropID[:-1]
-				time.sleep(0.1)
-			elif key == 'D':  #return to previous menu
-					return False, ""
-			elif key.isdigit():
-				cropID += key
-				time.sleep(0.2)
-			key = ""
-		if validateCropID(): # verify trough id
-				return True, cropID
-		else:
-			lcd.clear()
-			lcd.string("Trough ID is", LINE_1)
-			lcd.string("    Invalid!", LINE_2)
-			lcd.string("Please Try Again", LINE_3)
-			time.sleep(1)
-
+	if os.path.exists(crop_offline):
+		r = ""
+		with open(crop_offline,"r") as file:
+			r  =file.read()
+		r = json.loads(r)
+		while True:
+			cropID =  show_choices(r[0],r[1],r[2],display_percentages=False)
+			if validateCropID(): # verify crop id
+					return True, cropID
+	else:
+		lcd.clear()
+		cropID = ""
+		key = ""
+		time.sleep(0.1)
+		lcd.string(" Enter Crop ID  ", LINE_1)
+		lcd.string("  *- continue   ", LINE_2)
+		lcd.string("#- clear,D- back", LINE_3)
+		#loop until some crop id is entered and * key is pressed. Following loop will run until valid crop id entered
+		while True:
+			while  key != "*":
+				lcd.string(cropID, LINE_4)
+				key = kpad.get_key()
+				if key == '*':
+					if len(cropID) == 0:
+						lcd.clear()
+						lcd.string("Crop ID cant", LINE_1)
+						lcd.string("be null", LINE_2)
+						time.sleep(1)
+						lcd.clear()
+						lcd.string(" Enter Crop ID  ", LINE_1)
+						lcd.string("  *- continue   ", LINE_2)
+						lcd.string("#- clear,D- back", LINE_3)
+					else:
+						break
+				elif key == '#':  #for backspacing
+					if len(cropID) > 0:
+						cropID = cropID[:-1]
+					time.sleep(0.1)
+				elif key == 'D':  #return to previous menu
+						return False, ""
+				elif key.isdigit():
+					cropID += key
+					time.sleep(0.2)
+				key = ""
+			if validateCropID(): # verify trough id
+					return True, cropID
+			else:
+				lcd.clear()
+				lcd.string("Crop ID is", LINE_1)
+				lcd.string("    Invalid!", LINE_2)
+				lcd.string("Please Try Again", LINE_3)
+				time.sleep(1)
 
 
 def validateTroughID():
@@ -283,10 +294,13 @@ def predict(data):
 	try:
 		r = requests.post(PREDICT_URL, data=json.dumps(data).encode('utf-8'))
 		print(r.text)
+		with open(crop_offline,"w") as file:
+			file.write(r.text)
 		r = json.loads(r.text)
 		return True, r[0], r[1], r[2]
 	except Exception as e:
-		return False, e, "", "", ""
+		print(e)
+		return False, e, "", ""
 
 
 # Send all the data along with the crop id to the server
@@ -319,7 +333,7 @@ def send_all_data(data):
 
 
 # Generate 4 options at a time
-def generate_options(names,percentages,primary_keys):
+def generate_options(names,percentages,primary_keys,display_percentages=True,short_names=True):
 	all_options = []
 	all_pks = []
 	assert len(names) == len(percentages) , "Length's of names and percentages don't match!"
@@ -328,8 +342,12 @@ def generate_options(names,percentages,primary_keys):
 		pk = []
 		for j in range(0,min(4,len(names) - start_idx)):
 			idx = start_idx + j
-			assert len(names[idx]) <= 11, "Length of name too long!"
-			row = str(j+1) + '.' + names[idx].ljust(11) + (' {:05.2f}'.rjust(5).format(percentages[idx]*100)) + '%'
+			row = str(j+1) + '.' + names[idx]
+			if short_names:
+				assert len(names[idx]) <= 11, "Length of name too long!"
+				row = str(j+1) + '.' + names[idx].ljust(11)
+			if display_percentages:
+				row = row + (' {:05.2f}'.rjust(5).format(percentages[idx]*100)) + '%'
 			s.append(row)
 			pk.append(primary_keys[idx])
 		all_options.append(s)
@@ -337,10 +355,10 @@ def generate_options(names,percentages,primary_keys):
 	return all_options,all_pks
 
 # Show choices to select crop along with percentages
-def show_choices(names,percentages,primary_keys):
+def show_choices(names,percentages,primary_keys,display_percentages=True,short_names=True):
 	lcd.clear()
 	print("Options:")
-	options,pks = generate_options(names,percentages,primary_keys)
+	options,pks = generate_options(names,percentages,primary_keys,display_percentages,short_names)
 	last_idx = len(options) - 1
 	print(options)
 	curr_start_idx = 0
@@ -349,32 +367,33 @@ def show_choices(names,percentages,primary_keys):
 		option = options[curr_start_idx]
 		for i in range(0,len(option)):
 			lcd.string(option[i],LINES[i])
+		time.sleep(0.2)
 
-		for i in range(1,len(option)+1):
+		while True:
 			key = kpad.get_key()
-			if key == str(i):
+
+			for i in range(1,len(option)+1):
+				if key == str(i):
+					time.sleep(0.1)
+					return pks[curr_start_idx][i-1]
+
+			if key == '*':
+				lcd.clear()
 				time.sleep(0.1)
-				return pks[curr_start_idx][i-1]
+				if curr_start_idx == last_idx:
+					curr_start_idx = 0
+				elif curr_start_idx < last_idx:
+					curr_start_idx = (curr_start_idx + 1)
+				break
 
-		key = kpad.get_key()
-
-		if key == '*':
-			lcd.clear()
-			time.sleep(0.1)
-			if curr_start_idx == last_idx:
-				curr_start_idx = 0
-			elif curr_start_idx < last_idx:
-				curr_start_idx = (curr_start_idx + 1)
-			continue
-
-		if key == '#':
-			lcd.clear()
-			time.sleep(0.1)
-			if curr_start_idx == 0:
-				curr_start_idx = last_idx
-			elif curr_start_idx >= 1:
-				curr_start_idx = (curr_start_idx - 1)
-			continue
+			if key == '#':
+				lcd.clear()
+				time.sleep(0.1)
+				if curr_start_idx == 0:
+					curr_start_idx = last_idx
+				elif curr_start_idx >= 1:
+					curr_start_idx = (curr_start_idx - 1)
+				break
 				
 
 # Display the prediction on the screen and change is asked to.
@@ -430,8 +449,7 @@ try :
 				if(troughIDAccepted):
 					stage += 1 
 				else:
-					stage -= 1
-					continue
+					break
 			if stage==2:
 				print("Trying to Connect")
 				if is_connected(PREDICT_URL):

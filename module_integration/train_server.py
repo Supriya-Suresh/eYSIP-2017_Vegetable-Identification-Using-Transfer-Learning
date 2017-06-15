@@ -4,6 +4,7 @@ import time
 import json
 import os
 
+
 hostName = "192.168.0.66"
 hostPort = 6969
 SECRET_KEY = 'El-Psy-Kongroo'
@@ -11,6 +12,7 @@ TRAIN_DIRECTORY = '/home/teknas/Desktop/Train/'
 # Expected payload keys
 EXPECTED_KEYS = ['secret','image','image_name','label']
 
+# Main server class
 class TrainServer(BaseHTTPRequestHandler):
     def _set_headers(self):
         self.send_response(200)
@@ -22,10 +24,12 @@ class TrainServer(BaseHTTPRequestHandler):
         self.send_header('Content-type', 'text/html')
         self.end_headers()
 
+    # Handle GET Requests
     def do_GET(self):
         self._set_headers()
-        self.wfile.write(bytes("<html><body><h1>Get Request Received!</h1></body></html>",'utf-8'))
+        self.wfile.write(bytes("<html><body><h1>Alive!</h1></body></html>",'utf-8'))
 
+    # Handle POST Requests
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
@@ -34,7 +38,7 @@ class TrainServer(BaseHTTPRequestHandler):
         if all(key in formatted_data for key in EXPECTED_KEYS):
             if formatted_data['secret'] == SECRET_KEY:
                 
-                # Folder to store image
+                # Create folder to store image if it does not exist
                 class_folder = os.path.join(TRAIN_DIRECTORY,formatted_data['label'])
                 if not os.path.exists(class_folder):
                     os.makedirs(class_folder)
@@ -68,4 +72,4 @@ if __name__ == '__main__':
         trainServer.serve_forever()
     except KeyboardInterrupt:
         trainServer.server_close()
-        print(time.asctime(), "Server Stopped - %s:%s" % (hostName, hostPort))
+        print(time.asctime(), "Server Stopped on - %s:%s" % (hostName, hostPort))
