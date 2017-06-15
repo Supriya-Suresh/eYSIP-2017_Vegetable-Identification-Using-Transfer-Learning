@@ -84,8 +84,7 @@ def tare():
 
 # Take a picture of the Crop from the webcam
 def takePicture():
-	lcd.clear()
-	lcd.string("Taking picture...", LINE_1)
+	lcd.string("Taking picture...", LINE_2)
 	if os.path.exists('/dev/video0'):
 		#create image file name with current date
 		imgName = "image-"+ datetime.datetime.now().isoformat()+str(USER_ID)+".jpg"
@@ -282,9 +281,9 @@ def is_connected(url):
 # Send the crop image and other data to the server for preidction and return the predicted crop name and id
 def predict(data):
 	lcd.clear()
-	lcd.string("       Asking", LINE_2)
-	lcd.string("    Nostradamus", LINE_3)
-	lcd.string("   Please wait...", LINE_4)
+	lcd.string("Nostradamus is", LINE_1)
+	lcd.string("thinking.", LINE_2)
+	lcd.string("Keep calm.", LINE_3)
 	data['user_id']=USER_ID
 	data['password']=PASSWORD
 	with open(imagepath + data['imagename'], 'rb') as img:
@@ -346,7 +345,7 @@ def generate_options(names,percentages,primary_keys,display_percentages=True,sho
 			if short_names:
 				assert len(names[idx]) <= 11, "Length of name too long!"
 				row = str(j+1) + '.' + names[idx].ljust(11)
-			if display_percentages:
+			if display_percentages and percentages[idx] > 0:
 				row = row + (' {:05.2f}'.rjust(5).format(percentages[idx]*100)) + '%'
 			s.append(row)
 			pk.append(primary_keys[idx])
@@ -374,7 +373,6 @@ def show_choices(names,percentages,primary_keys,display_percentages=True,short_n
 
 			for i in range(1,len(option)+1):
 				if key == str(i):
-					time.sleep(0.1)
 					return pks[curr_start_idx][i-1]
 
 			if key == '*':

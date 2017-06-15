@@ -1,0 +1,35 @@
++-------------+
+| short_name  |
++-------------+
+| AmaranthusG |
+| AmaranthusR |
+| BFenugreek  |
+| Basil       |
+| Beetroot    |
+| BitterGourd |
+| BottleGourd |
+| Brinjal     |
+| Cabbage     |
+| Cauliflower |
+| Chilli      |
+| ClusterBean |
+| Coriander   |
+| Cucumber    |
+| Fenugreek   |
+| Ice_Lettuce |
+| Ladyfinger  |
+| Lemon_Grass |
+| Lollo_Rosso |
+| Maize       |
+| Mustard     |
+| Onion       |
+| Parsley     |
+| Radish      |
+| Ridge_Gourd |
+| Snake_Gourd |
+| Spinach     |
+| TurmericL   |
+| Turmeric    |
+| Tomato      |
++-------------+
+
