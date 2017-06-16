@@ -5,7 +5,6 @@ import prettytensor as pt
 import time
 from datetime import timedelta
 import os
-import inception
 
 from dataset import load_cached
 
@@ -19,6 +18,7 @@ image_paths_test, cls_test, labels_test = dataset.get_test_set()
 print("Size of:")
 print("- Training-set:\t\t{}".format(len(image_paths_train)))
 print("- Test-set:\t\t{}".format(len(image_paths_test)))
+import inception
 
 inception.maybe_download()
 model = inception.Inception()
@@ -43,25 +43,27 @@ transfer_values_test = inception.transfer_values_cache(cache_path=file_path_cach
                                                        image_paths=image_paths_test,
                                                        model=model)
 
-# plot_transfer_values(image_paths_test, transfer_values_test, 100)
-# plot_transfer_values(image_paths_train, transfer_values_train, 10)
 
-# Useful for visualizing if transfer values can be grouped into classes
-from sklearn.decomposition import PCA
+# plot_transfer_values(image_paths_train, transfer_values_train, 545)
+# plot_transfer_values(image_paths_train, transfer_values_train, 546)
 
-pca = PCA(n_components=2)
-transfer_values = transfer_values_train
-cls = cls_train
-transfer_values_reduced = pca.fit_transform(transfer_values)
-plot_scatter(transfer_values_reduced,num_classes,cls)
 
-from sklearn.manifold import TSNE
+#Useful for visualizing if transfer values can be grouped into classes
+# from sklearn.decomposition import PCA
 
-pca = PCA(n_components=50)
-transfer_values_50d = pca.fit_transform(transfer_values)
-tsne = TSNE(n_components=2)
-transfer_values_reduced = tsne.fit_transform(transfer_values_50d)
-plot_scatter(transfer_values_reduced,num_classes, cls)
+# pca = PCA(n_components=2)
+# transfer_values = transfer_values_train
+# cls = cls_train
+# transfer_values_reduced = pca.fit_transform(transfer_values)
+# plot_scatter(transfer_values_reduced,num_classes,cls)
+
+# from sklearn.manifold import TSNE
+
+# pca = PCA(n_components=50)
+# transfer_values_50d = pca.fit_transform(transfer_values)
+# tsne = TSNE(n_components=2)
+# transfer_values_reduced = tsne.fit_transform(transfer_values_50d)
+# plot_scatter(transfer_values_reduced,num_classes, cls)
 
 
 transfer_len = model.transfer_len
@@ -73,11 +75,13 @@ x_pretty = pt.wrap(x)
 
 with pt.defaults_scope(activation_fn=tf.nn.relu):
     y_pred,loss = x_pretty.\
-        fully_connected(size=1024,name='layer_fc1').\
+        fully_connected(size=4096,name='layer_fc1').\
+        fully_connected(size=2048,name='layer_fc2').\
+        fully_connected(size=1024,name='layer_fc3').\
         softmax_classifier(num_classes=num_classes,labels=y_true)
 
 global_step = tf.Variable(initial_value=0,name='global_step',trainable=False)
-optimizer = tf.train.AdamOptimizer(learning_rate=1e-4).minimize(loss, global_step)
+optimizer = tf.train.AdagradOptimizer(learning_rate=(1e-2)).minimize(loss, global_step)
 y_pred_cls = tf.argmax(y_pred,dimension=1)
 correct_prediction = tf.equal(y_pred_cls, y_true_cls)
 accuracy = tf.reduce_mean(tf.cast(correct_prediction,tf.float32))
@@ -302,12 +306,32 @@ def print_test_accuracy(show_example_errors=False,
         print("Confusion Matrix:")
         plot_confusion_matrix(cls_pred=cls_pred)
 
-num_iterations = 1000
-print_test_accuracy(False, True)
-optimize(num_iterations=num_iterations)
+
+def predict_class_of_image(image_path):
+    transfer_value = [model.transfer_values(image_path=image_path)]    
+    feed_dict = {x: transfer_value}
+    classification = session.run(y_pred_cls,feed_dict)
+    #return classification
+    return dataset.class_names[classification[0]]
+
+def predict_class_of_images_in_folder(folder_path):
+    for filename in sorted(os.listdir(folder_path)):
+        if filename.endswith(".jpg"):
+            print(filename)
+            print(predict_class_of_image(os.path.join(folder_path,filename)))
+
+
+num_iterations = 12000
+print("Before Training")
+print_test_accuracy(False, False)
+#optimize(num_iterations=num_iterations)
+
 # To restore previously saved model
-# saver.restore(sess=session,save_path=save_path)
-print_test_accuracy(True, True)
+saver.restore(sess=session,save_path=save_path)
+print("After training")
+print_test_accuracy(False, True)
+predict_class_of_images_in_folder('./vid-images')
+
 model.close()
 session.close()
 
