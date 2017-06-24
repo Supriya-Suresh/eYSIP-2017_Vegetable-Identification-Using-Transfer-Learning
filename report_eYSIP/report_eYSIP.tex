@@ -1,0 +1,173 @@
+\documentclass[a4paper,12pt,oneside]{book}
+
+%-------------------------------Start of the Preable------------------------------------------------
+\usepackage[english]{babel}
+\usepackage{blindtext}
+%packagr for hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\urlstyle{same}
+%use of package fancy header
+\usepackage{fancyhdr}
+\setlength\headheight{26pt}
+\fancyhf{}
+%\rhead{\includegraphics[width=1cm]{logo}}
+\lhead{\rightmark}
+\rhead{\includegraphics[width=1cm]{logo.png}}
+\fancyfoot[RE, RO]{\thepage}
+\fancyfoot[CE, CO]{\href{http://www.e-yantra.org}{www.e-yantra.org}}
+
+\pagestyle{fancy}
+
+%use of package for section title formatting
+\usepackage{titlesec}
+\titleformat{\chapter}
+  {\Large\bfseries} % format
+  {}                % label
+  {0pt}             % sep
+  {\huge}           % before-code
+ 
+%use of package tcolorbox for colorful textbox
+\usepackage[most]{tcolorbox}
+\tcbset{colback=cyan!5!white,colframe=cyan!75!black,halign title = flush center}
+
+\newtcolorbox{mybox}[1]{colback=cyan!5!white,
+colframe=cyan!75!black,fonttitle=\bfseries,
+title=\textbf{\Large{#1}}}
+
+%use of package marginnote for notes in margin
+\usepackage{marginnote}
+
+%use of packgage watermark for pages
+%\usepackage{draftwatermark}
+%\SetWatermarkText{\includegraphics{logo}}
+\usepackage[scale=2,opacity=0.1,angle=0]{background}
+\backgroundsetup{
+contents={\includegraphics{logo}}
+}
+
+%use of newcommand for keywords color
+\usepackage{xcolor}
+\newcommand{\keyword}[1]{\textcolor{red}{\textbf{#1}}}
+
+%package for inserting pictures
+\usepackage{graphicx}
+
+%package for highlighting
+\usepackage{color,soul}
+
+%new command for table
+\newcommand{\head}[1]{\textnormal{\textbf{#1}}}
+
+
+%----------------------End of the Preamble---------------------------------------
+
+
+\begin{document}
+
+%---------------------Title Page------------------------------------------------
+\begin{titlepage}
+\raggedright
+{\Large eYSIP2017\\[1cm]}
+{\Huge\scshape Vegetable Identification Using Transfer Learning \\[.1in]}
+\vfill
+\begin{flushright}
+{\large Sanket Shanbhag \\}
+{\large Supriya Suresh \\}
+{\large Saurav and Naveen \\}
+{\large Duration of Internship: $ 22/05/2017-07/07/2017 $ \\}
+\end{flushright}
+
+{\itshape 2017, e-Yantra Publication}
+\end{titlepage}
+%-------------------------------------------------------------------------------
+
+\chapter[Project Tag]{Vegetable Identification Using \\ Transfer Learning}
+\section*{Abstract}
+This project aims to create a system for automatically logging farm produce from the green house at e-Yantra. An image is captured of the produce and this image is fed to a neural network based on the Inception-v3 model by Google. This system then identifies the vegetable and classifies it into different classes it has been trained on. Also, a re-training system is implemented which automatically trains any new images captured and thereby further increasing the accuracy of the system over time.
+
+\subsection*{Completion status}
+The system has been successfully trained for 18 classes (vegetables) achieving accuracy of 99.5\% on a separate test set. Also a system has been implemented for auto-training any new images captured on the system every 4 days.
+
+\section{Hardware parts}
+\begin{itemize}
+  \item List of hardware 
+  \item Detail of each hardware: \href[page=5]{./datasheet/MPU-9150.pdf}{Datasheet, page 5}, \href{http://www.amazon.in}{Vendor link}, 
+  \item Connection diagram
+\end{itemize}
+
+\section{Software used}
+\begin{itemize}
+  \item \href{https://www.python.org/downloads/release/python-352/}{Python 3.5.2}
+  \item \href{https://pypi.python.org/pypi/tensorflow/1.2.0}{Tensorflow 1.2.0}
+  \item \href{https://github.com/google/prettytensor}{PrettyTensor 0.7.4} 
+  \item Installation Steps:
+  \begin{itemize}
+  	\item Open a terminal in the project base folder and type: \\
+  	\texttt{pip3 install -r requirements.txt}
+  \end{itemize}
+\end{itemize}
+
+\section{Assembly of hardware}
+Circuit diagram and Steps of assembly of hardware with pictures for each step
+\subsection*{Circuit Diagram}
+Circuit schematic, simplified circuit diagram , block diagram of system
+\subsection*{Step 1}
+Steps for assembling part 1
+\subsection*{Step 2}
+Steps for assembling part 2
+\subsection*{Step 3}
+Steps for assembling part 3
+
+
+
+\section{Software and Code}
+The complete code is available \href{https://github.com/eYSIP-2017/eYSIP-2017_Vegetable-Identification-Using-Transfer-Learning}{here}. It is divided into various folders each with a self contained module of the project.
+
+\subsection{Downloading and formatting data}
+The folder \texttt{download\_data} contains python scripts and shell scripts for downloading and formatting data from a list of URLS or from \href{http://www.image-net.org/}{ImageNet}. Information on using these scripts can be found in the \href{https://github.com/eYSIP-2017/eYSIP-2017_Vegetable-Identification-Using-Transfer-Learning/wiki/Downloading-and-formatting-data.}{wiki page}.
+
+\subsection{Transfer Learning}
+The code for transfer learning can be found in the \texttt{transfer\_on\_inception\_v3} folder. The \texttt{transferveg.py} file contains the code for running the model.
+We remove the final layer of the Inception-v3 model and add 3 fully connected layers of 4096, 2048, and 1024 nodes with a dropout layer after the 2048-node layer.
+This helps us achieve an accuracy of 99.5\%
+
+\subsection{Module Integration}
+The \texttt{ghfarm.py} script contained in the \texttt{module\_integration} folder will run on the raspberry pi on the weighing machine. It interfaces with the server to predict the crop and sends data once the image is taken.
+
+\subsection{Auto-Training}
+The \texttt{AutoTrain} folder contains code for running a server to accept images and scripts for adding cron tasks to run the autotraining code every 4 days.
+
+
+\section{Use and Demo}
+Final Setup Image
+
+User Instruction for demonstration
+
+\href{http://www.youtube.com}{Youtube Link} of demonstration video 
+
+\section{Future Work}
+What can be done to take this work ahead in future as projects.
+
+\section{Bug report and Challenges}
+Any issues in code and hardware.
+
+Any failure or challenges faced during project
+
+\begin{thebibliography}{li}
+\bibitem{wavelan97}
+Ad Kamerman and Leo Monteban,
+{\em WaveLAN-II: A High-Performance Wireless LAN for the Unlicensed band},
+1997.
+
+\end{thebibliography}
+
+
+\end{document}
+
