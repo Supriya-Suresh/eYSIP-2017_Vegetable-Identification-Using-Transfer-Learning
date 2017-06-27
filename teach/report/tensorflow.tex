@@ -1,10 +1,5 @@
 %
 \documentclass[Proceedings]{ascelike}
-%
-% Feb. 14, 2013
-%
-% Some useful packages...
-%
 \usepackage{graphicx}
 \usepackage{subfigure}
 \usepackage{amsmath}
@@ -47,69 +42,34 @@
     filecolor=magenta,      
     urlcolor=cyan,
 }
-%
-%
-% Place hyperlinks within the pdf file (works only with pdflatex, not latex)
-% \usepackage[colorlinks=true,citecolor=red,linkcolor=black]{hyperref}
-%
-%
-% NOTE: Don't include the \NameTag{<your name>} if you have selected 
-%       the NoPageNumbers option: this leads to an inconsistency and
-%       a warning, and the NameTag is ignored.
+
 \NameTag{}
 %
 %
 \begin{document}
 %
 % You will need to make the title all-caps
-\title{TENSORFLOW TUTORIAL}
+\title{TensorFlow Tutorial}
 %
 \author{
-Sanket Shanbhag
-%
-% ---- The first of two styles for addresses: using footnotes and \thanks ----
-\thanks{}
-%
-% Adding a second author with the same affiliation (still using \thanks):
-%  \\
-%  Ima Colleague,\footnotemark[1] Member, ASCE%
-%
-% Adding another author with a different affiliation.  I have found that 
-% the \and command doesn't quite work, so just use "and", as in the following 
-% \\
-% and
-% Younyee Kuhn%
-% \thanks{Flourishing wife of same.},%
-% \ Not a Member, ASCE
-%
-% ---- The second of two styles for addresses: below names, no footnotes ----
-%
-% For this style, don't use \thanks.  Instead, use superscripts and carriage
-% returns ("\\").  It's not pretty, but neither is the new ASCE proceedings
-% style.  Something like the following:
-%
-% Matthew R. Kuhn$^1$, Member, ASCE\\[1ex]%
-%
-% $^1$\parbox[t]{5.75in}{Dept.\ of Civil Engrg.,
-% Donald P.\ Shiley School of Engrg., Univ.\ of Portland, 
-% 5000 N.\ Willamette Blvd., Portland, OR  97203. kuhn@up.edu.}
+Sanket Shanbhag \\
+e-YSIP 2017
 }
 %
 \maketitle
 %
-\begin{abstract}
-This document describes some basic concepts on how to use \href{https://www.tensorflow.org/install/}{tensorflow}.
-Familiarity with machine learning concepts is assumed. We will be using Python3 along with tensorflow version 1.2.0.
-\end{abstract}
-%
-% Some keywords, using a new command: \KeyWords{}
-%
-
-%
 \section{Introduction}
-To do efficient numerical computing in Python, we typically use libraries like NumPy that do expensive operations such as matrix multiplication outside Python, using highly efficient code implemented in another language. Unfortunately, there can still be a lot of overhead from switching back to Python every operation. This overhead is especially bad if you want to run computations on GPUs or in a distributed manner, where there can be a high cost to transferring data.
+%\begin{abstract}
+This document describes some basic concepts on how to use \href{https://www.tensorflow.org/install/}{TensorFlow}. Before using this document, you should first read the document on basic machine learning concepts. Also, some familiarity with neural networks and how they function is assumed. If you are new to neural networks, you should also read through \href{http://neuralnetworksanddeeplearning.com/chap1.html}{this} introductory tutorial.
+Although TensorFlow is available for Python 2.7, for this tutorial we will be using Python 3 along with TensorFlow version 1.2.0.
 
-TensorFlow also does its heavy lifting outside Python, but it takes things a step further to avoid this overhead. It does this by building a so called computational graph before-hand and performing all computations afterwards on this graph using highly efficient hardware specific instructions. Since GPU's are specifically designed for optimizing matrix multiplications, using TensorFlow allows us to harness the entire power of the GPU to speed up computations. 
+%\end{abstract}
+TensorFlow is a machine learning library which provides both high level and low level API's for creating and running models. This allows you to create complex models faster than other libraries but also provides fine-grained control if required. It is specifically designed for neural networks; however, other machine learning algorithms are also available. Models in TensorFlow are defined using data-flow graphs. 
+
+Many scientific and numerical libraries in Python optimize mathematical operations by using another lower level language to perform those operations. TensorFlow builds up on this by computing the entire data-flow graph in a lower level language thereby avoiding the cost of context switching between two languages.
+
+\section{How to use this tutorial}
+It is not enough just to read through this document. Try to write each line and run it yourself. After you are done, try out the things mentioned at the end. If you are stuck at any point, the best place to find more information about the TensorFlow API is the \href{https://www.tensorflow.org/api_docs/}{API docs}.
 
 \section{Setting up}
 Before we use Tensorflow, we must import it:
@@ -117,9 +77,9 @@ Before we use Tensorflow, we must import it:
 \begin{lstlisting}[language=Python]
 import tensorflow as tf
 \end{lstlisting}
-The best place to find more information on all the functions we will use is the \href{https://www.tensorflow.org/api_docs/}{API docs}.
 
 The central unit of data in TensorFlow is the tensor. A tensor can simply be thought of as a multidimensional array. A tensor's rank is its number of dimensions. Here are some examples of tensors:
+
 \begin{lstlisting}[language=Python]
 3 # a rank 0 tensor; this is a scalar with shape []
 [1, 2, 3] # a rank 1 tensor; this is a vector with shape [3]
@@ -130,18 +90,22 @@ The central unit of data in TensorFlow is the tensor. A tensor can simply be tho
 To create a computational graph, we create nodes and then run a session on these nodes to generate the output. Each node takes zero or more tensors as inputs and produces a tensor as an output.
 
 \section{Inputs and Sessions}
+
 \subsection{Constants}
 One type of node is a constant. Like all TensorFlow constants, it takes no inputs, and it outputs a value it stores internally.
 \begin{lstlisting}[language=Python]
 # Use dtype to optionally specify a type
 node = tf.constant(42.0, dtype=tf.float32)
 \end{lstlisting}
-At this stage node is a tensor object that, when evaluated will hold the value 3.0. To actually evaluate this node, we have to run the computational graph in a session.
+
+The various data-types in tensorflow which can be used are found \href{https://www.tensorflow.org/programmers_guide/dims_types}{here}.
+
+At this stage node is a tensor object that, when evaluated will hold the value 42.0. To actually evaluate this node, we have to run the computational graph in a session. We use the \texttt{run()} function of the Session() object for this job. The \texttt{run()} function will run the graph and returns the output of the object that is passed to it. We can also pass in multiple objects to get a tuple of results.
 
 \begin{lstlisting}[language=Python]
 # Start a new Tensorflow session
 sess = tf.Session()
-print(sess.run([node1])) # Prints 42
+print(sess.run([node])) # Prints 42.0
 \end{lstlisting}
 
 \subsection{Placeholders}
@@ -153,10 +117,11 @@ b = tf.placeholder(tf.float32)
 adder_node = tf.add(a,b)
 \end{lstlisting}
 
-To give a value to the placeholder in the computational graph, use the \texttt{feed\_dict} argument in the \texttt{run} function of the Session object to pass a python dictionary specifying the placeholders as key-value pairs.
+To give a value to the placeholder in the computational graph, use the \texttt{feed\_dict} argument in the \texttt{run} function of the Session object to pass a python dictionary specifying the placeholders with their values as key-value pairs.
 
 \begin{lstlisting}[language=Python]
-print(sess.run(adder_node, feed_dict={a:18, b:24})) # Prints 42!
+# Prints 42.0!
+print(sess.run(adder_node, feed_dict={a:18.0, b:24.0}))
 \end{lstlisting}
 
 To assign placeholders of a higher rank, use the \texttt{shape} argument to specify the shape of the tensor. If any of the dimensions can be arbitary, for example when using arbitary number of training samples, you can use \texttt{None} instead.
@@ -175,10 +140,12 @@ Variables allow us to add trainable parameters to a graph. A variable maintains 
 # Create some variables.
 W = tf.Variable([.3], dtype=tf.float32)
 # tf.random_normal(): Outputs random values from a normal 
-# distribution.
+# distribution which will be of shape [784, 200]. 
+# See the docs for more info
 weights = tf.Variable(tf.random_normal([784, 200], stddev=0.35),
                       name="weights")
-# tf.zeros(): Creates a tensor with all elements set to zero
+# tf.zeros(): Creates a tensor with all elements set to zero 
+# with shape [200]
 biases = tf.Variable(tf.zeros([200]), name="biases")
 \end{lstlisting}
 
@@ -190,7 +157,10 @@ Variables are not initialized when you call \texttt{tf.Variable}. To initialize 
 sess.run(tf.global_variables_initializer())
 \end{lstlisting}
 
+We have now gone over all the components required to define a working model. Now we will look at how to use these to create a model and run it.
+
 \section{Simple Linear Model}
+
 In this section, we will create a simple model for classification on the easily available \href{https://en.wikipedia.org/wiki/MNIST_database}{MNIST} data-set and train it. Some familiarity with neural networks, activation functions and backpropagation are prerequisites for this section.
 
 \subsection{Downloading and Formatting Data}
@@ -210,15 +180,7 @@ For example, if the class value is 4, then it's one-hot encoded vector will be:
 [0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
 \end{lstlisting}
 
-\subsection{Using your own dataset}
-Using the pandas library we can import our own dataset as follows:
-
-\begin{lstlisting}[language=Python]
-import pandas as pd
-
-# Load in the data with `read_csv()`
-mnist = pd.read_csv("http://archive.ics.uci.edu/ml/machine-learning-databases/optdigits/optdigits.tra", header=None)
-\end{lstlisting}
+If you would like to use your own data-set, check out \href{https://agray3.github.io/2016/11/29/Demystifying-Data-Input-to-TensorFlow-for-Deep-Learning.html}{this} tutorial.
 
 \subsection{Setting up Hyperparamaters}
 \begin{lstlisting}[language=Python]
@@ -232,31 +194,6 @@ n_nodes_hl1 = 500
 # The images are 28x28 pixels each
 img_size_flat = 28 * 28
 \end{lstlisting}
-
-\subsection{Setting up a saver object}
-To save your trained model in case of a crash, we can use tensorflow Saver objects as shown:
-
-\begin{lstlisting}[language=Python]
-# Declare a saver object
-saver = tf.train.Saver()
-# Directory to save checkpoints to
-save_dir = 'checkpoints/'
-# Create the directory if it doesn't exist
-if not os.path.exists(save_dir):
-    os.makedirs(save_dir)
-# Prefix to attach with which checkpoints will be saved
-save_path = os.path.join(save_dir, 'saved')
-\end{lstlisting}
-
-To restore the saved checkpoints, after declaring your model, simply call the following function:
-
-\begin{lstlisting}[language=Python]
-# Restore saved model from save_path
-saver.restore(sess=session,save_path=save_path)
-\end{lstlisting}
-
-This will allow you to predict on a saved model.
-
 
 \subsection{Setting up the model}
 To input images to our model, we will first flatten them into a single dimensional vector of length \texttt{img\_size\_flat}, and then feed this vector into our model. To do this, we will define a few placeholders:
@@ -281,10 +218,39 @@ output_layer_weights = tf.Variable(tf.random_normal([n_nodes_hl1,
 output_layer_biases = tf.Variable(tf.random_normal([n_classes]))
 \end{lstlisting}
 
-\subsection{Connecting the Layers}
-We now define the relationsip between our layers by matrix multiplying the data with the weights and adding the biases. We use the \href{https://en.wikipedia.org/wiki/Rectifier_(neural_networks)}{ReLu} activation function. Other activation functions are also available in tensorflow and can be found \href{https://www.tensorflow.org/api_guides/python/nn}{here}.
+\subsection{Setting up a saver object}
+Running large models can take a significant amount of time. If your program crashes in the middle of execution, you may lose all your trained data on the model. To save your trained model in case of a crash, we can use tensorflow Saver objects as shown:
 
 \begin{lstlisting}[language=Python]
+# Declare a saver object
+saver = tf.train.Saver()
+# Directory to save checkpoints to
+save_dir = 'checkpoints/'
+# Create the directory if it doesn't exist
+if not os.path.exists(save_dir):
+    os.makedirs(save_dir)
+# Prefix to attach with which checkpoints will be saved
+save_path = os.path.join(save_dir, 'saved')
+\end{lstlisting}
+
+A single Saver object can only save one instance of your model. To save multiple copies during different iterations, you will have to create multiple Saver objects.
+
+To restore the saved checkpoints, after declaring bejeyour model, simply call the following function:
+
+\begin{lstlisting}[language=Python]
+# Restore saved model from save_path
+saver.restore(sess=session,save_path=save_path)
+\end{lstlisting}
+
+This will allow you to use a saved model.
+
+
+\subsection{Connecting the Layers}
+We now define the relationship between our layers by matrix multiplying the data with the weights and adding the biases. We use the \href{https://en.wikipedia.org/wiki/Rectifier_(neural_networks)}{ReLu} activation function. Other activation functions are also available in tensorflow and can be found \href{https://www.tensorflow.org/api_guides/python/nn}{here}.
+
+\begin{lstlisting}[language=Python]
+# tf.matmul will perform matrix-multiplication on its inputs.
+# tf.add will add its arguments together.
 l1 = tf.add(tf.matmul(X,hidden_layer_weights), 
                       hidden_layer_biases)
 # Using ReLu activation
@@ -297,6 +263,7 @@ output = tf.matmul(l1,output_layer_weights) + output_layer_biases
 We now define a function to train this network. We will use the \href{https://en.wikipedia.org/wiki/Gradient_descent}{GradientDescent} Optimizer to reduce the \href{https://en.wikipedia.org/wiki/Mean_squared_error}{mean squared error (MSE)} loss function. Other optimizers in tensorflow can be found \href{https://www.tensorflow.org/api_guides/python/train#Optimizers}{here}.
 
 \begin{lstlisting}[language=Python]
+# Takes the model as input and runs the session on it.
 def train_neural_network(x):
     prediction = x
     # Softmax function
@@ -340,7 +307,7 @@ def train_neural_network(x):
             print('Epoch', epoch+1, 'completed out of',hm_epochs,
                                   'loss:',epoch_loss)
         
-        # Caculate and print accuracy
+        # Calculate and print accuracy
         correct = tf.equal(tf.argmax(prediction, 1), 
                            tf.argmax(y, 1))
         accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
@@ -382,10 +349,17 @@ Epoch 19 completed out of 20 loss: 17.0158358993
 Epoch 20 completed out of 20 loss: 15.9119512606
 Accuracy: 0.943
 \end{lstlisting}
+\newpage
 
-\section{Conclusion}
-We learnt the basics of how to use tensorflow. It is important to get hands-on experience with TensorFlow in order to learn how to use it properly. Try changing the learning rate, batch size and the optimizers used and see how they impact speed and performance.
-Also try to increase the number of layers to see how it affects the accuracy.
+\section{Things to Try}
+After you are done with the above model, you can try out the following things and see how they impact speed, accuracy and performance:
+\begin{itemize}
+    \item Increase the number of epochs.
+    \item Vary the learning rate.
+    \item Change the optimizer used.
+    \item Add 2 more layers.
+\end{itemize}
+
 
 \end{document}
 
