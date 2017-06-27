@@ -47,8 +47,8 @@ transfer_values_test = inception.transfer_values_cache(cache_path=file_path_cach
 # plot_transfer_values(image_paths_train, transfer_values_train, 545)
 # plot_transfer_values(image_paths_train, transfer_values_train, 546)
 
-
-#Useful for visualizing if transfer values can be grouped into classes
+is_Training = True
+# Useful for visualizing if transfer values can be grouped into classes
 # from sklearn.decomposition import PCA
 
 # pca = PCA(n_components=2)
@@ -77,11 +77,12 @@ with pt.defaults_scope(activation_fn=tf.nn.relu):
     y_pred,loss = x_pretty.\
         fully_connected(size=4096,name='layer_fc1').\
         fully_connected(size=2048,name='layer_fc2').\
+        dropout(keep_prob=0.5,phase=is_Training).\
         fully_connected(size=1024,name='layer_fc3').\
         softmax_classifier(num_classes=num_classes,labels=y_true)
 
 global_step = tf.Variable(initial_value=0,name='global_step',trainable=False)
-optimizer = tf.train.AdagradOptimizer(learning_rate=(1e-2)).minimize(loss, global_step)
+optimizer = tf.train.AdamOptimizer(learning_rate=(1e-5)).minimize(loss, global_step)
 y_pred_cls = tf.argmax(y_pred,dimension=1)
 correct_prediction = tf.equal(y_pred_cls, y_true_cls)
 accuracy = tf.reduce_mean(tf.cast(correct_prediction,tf.float32))
@@ -119,6 +120,7 @@ def random_batch():
 
 
 def optimize(num_iterations):
+    is_Training = True
     # Start-time used for printing time-usage below.
     start_time = time.time()
 
@@ -228,6 +230,7 @@ batch_size = 256
 
 
 def predict_cls(transfer_values, labels, cls_true):
+    is_Training = False
     # Number of images.
     num_images = len(transfer_values)
 
@@ -282,6 +285,7 @@ def classification_accuracy(correct):
 
 def print_test_accuracy(show_example_errors=False,
                         show_confusion_matrix=False):
+    is_Training = False
     # For all the images in the test-set,
     # calculate the predicted classes and whether they are correct.
     correct, cls_pred = predict_cls_test()
@@ -311,26 +315,21 @@ def predict_class_of_image(image_path):
     transfer_value = [model.transfer_values(image_path=image_path)]    
     feed_dict = {x: transfer_value}
     classification = session.run(y_pred_cls,feed_dict)
+    class_percent = session.run(y_pred,feed_dict)
     #return classification
-    return dataset.class_names[classification[0]]
-
-def predict_class_of_images_in_folder(folder_path):
-    for filename in sorted(os.listdir(folder_path)):
-        if filename.endswith(".jpg"):
-            print(filename)
-            print(predict_class_of_image(os.path.join(folder_path,filename)))
+    return dataset.class_names[classification[0]],(str(max(class_percent[0]*100)) + '%')
 
 
-num_iterations = 12000
+num_iterations = 10000
 print("Before Training")
 print_test_accuracy(False, False)
-#optimize(num_iterations=num_iterations)
+optimize(num_iterations=num_iterations)
 
 # To restore previously saved model
-saver.restore(sess=session,save_path=save_path)
+#saver.restore(sess=session,save_path=save_path)
 print("After training")
 print_test_accuracy(False, True)
-predict_class_of_images_in_folder('./vid-images')
+
 
 model.close()
 session.close()
