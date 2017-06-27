@@ -62,7 +62,7 @@
 \begin{document}
 %
 % You will need to make the title all-caps
-\title{TENSORFLOW BEGINNER TUTORIAL}
+\title{TENSORFLOW TUTORIAL}
 %
 \author{
 Sanket Shanbhag
@@ -210,6 +210,16 @@ For example, if the class value is 4, then it's one-hot encoded vector will be:
 [0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
 \end{lstlisting}
 
+\subsection{Using your own dataset}
+Using the pandas library we can import our own dataset as follows:
+
+\begin{lstlisting}[language=Python]
+import pandas as pd
+
+# Load in the data with `read_csv()`
+mnist = pd.read_csv("http://archive.ics.uci.edu/ml/machine-learning-databases/optdigits/optdigits.tra", header=None)
+\end{lstlisting}
+
 \subsection{Setting up Hyperparamaters}
 \begin{lstlisting}[language=Python]
 # Hyperparameters
@@ -222,6 +232,31 @@ n_nodes_hl1 = 500
 # The images are 28x28 pixels each
 img_size_flat = 28 * 28
 \end{lstlisting}
+
+\subsection{Setting up a saver object}
+To save your trained model in case of a crash, we can use tensorflow Saver objects as shown:
+
+\begin{lstlisting}[language=Python]
+# Declare a saver object
+saver = tf.train.Saver()
+# Directory to save checkpoints to
+save_dir = 'checkpoints/'
+# Create the directory if it doesn't exist
+if not os.path.exists(save_dir):
+    os.makedirs(save_dir)
+# Prefix to attach with which checkpoints will be saved
+save_path = os.path.join(save_dir, 'saved')
+\end{lstlisting}
+
+To restore the saved checkpoints, after declaring your model, simply call the following function:
+
+\begin{lstlisting}[language=Python]
+# Restore saved model from save_path
+saver.restore(sess=session,save_path=save_path)
+\end{lstlisting}
+
+This will allow you to predict on a saved model.
+
 
 \subsection{Setting up the model}
 To input images to our model, we will first flatten them into a single dimensional vector of length \texttt{img\_size\_flat}, and then feed this vector into our model. To do this, we will define a few placeholders:
@@ -296,6 +331,11 @@ def train_neural_network(x):
                                 feed_dict={X:xt, y:yt})
                 # Add the cost to our epoch loss
                 epoch_loss += c
+                
+                # Save this epoch so we can continue
+                # in case of crash
+                saver.save(sess=session,
+                           save_path=save_path)
 
             print('Epoch', epoch+1, 'completed out of',hm_epochs,
                                   'loss:',epoch_loss)
