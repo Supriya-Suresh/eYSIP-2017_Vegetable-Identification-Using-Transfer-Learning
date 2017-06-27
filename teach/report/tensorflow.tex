@@ -222,6 +222,7 @@ output_layer_biases = tf.Variable(tf.random_normal([n_classes]))
 Running large models can take a significant amount of time. If your program crashes in the middle of execution, you may lose all your trained data on the model. To save your trained model in case of a crash, we can use tensorflow Saver objects as shown:
 
 \begin{lstlisting}[language=Python]
+import os
 # Declare a saver object
 saver = tf.train.Saver()
 # Directory to save checkpoints to
