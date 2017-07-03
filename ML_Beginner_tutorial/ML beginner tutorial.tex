@@ -81,16 +81,16 @@ This document describes some basic concepts of Machine Learning for beginners. T
 \subsection{What is Machine Learning?}
 As most of the websites site \textit{"Machine Learning is the science that gives machines the capacity to learn and do something without being explicitly programmed"}, However according to me, the idea behind machine learning is to write an computer algorithms that will automatically improve themselves by finding patterns in existing data.
 
-The efficiency of an algorithm relies completely on data. The more data we have for training, the more accurate it becomes. Machine learning algorithm becomes more and more accurate as the quantity of data grows over time. This is one of the reason why google offers unlimited storage for photos so that they get lots of data!
+The efficiency of an algorithm relies completely on data. The more data we have for training, the more accurate it becomes. Machine learning algorithm becomes more and more accurate as the quantity of data grows over time. This is one of the reason why google offers unlimited storage for photos so that they get lots of data!\\
 
-\subsection{Purpose of ML}
+\subsection{MOTIVATION}
 \begin{figure}[!ht]
-	\includegraphics[width=1.3\linewidth]{"pic 12"}
-	\caption{}
+	\includegraphics[width=1.2\linewidth]{"pic 12"}
+	\caption{Applications:Google search engine, Instagram}
 	\label{fig:pic-12}
 \end{figure}
-
-It might sound strange but we probably use ML based applications dozens of times a day without even knowing it. Each time we do a web search on Google or Bing, that works so well because their machine learning software has figured out how to rank what pages or be it Youtube, it not only shows best results for our search but also recommends what videos we might like to watch. Facebook With it's "Face Recognition for tagging" or "Post's which we may like" options are all driven by AI. While Apple's Siri with voice recognition systems is also because of Machine Learning!\\
+\newpage
+It might sound strange but we probably use ML based applications dozens of times a day without even knowing it. Each time we do a web search on Google or Bing, that works so well because their machine learning software has figured out how to rank what pages or be it Youtube, it not only shows best results for our search but also recommends what videos we might like to watch. Facebook With it's "Face Recognition for tagging" or "Post's which we may like" options are all driven by AI. While Apple's Siri with voice recognition systems is also because of Machine Learning.\\
 
 
 
@@ -99,15 +99,15 @@ It might sound strange but we probably use ML based applications dozens of times
 \begin{figure}[!ht]
  \centering
  \includegraphics[width=1\linewidth]{"pic 13"}
- \caption{}
+ \caption{Identification of Spam mails}
  \label{fig:pic-13}
 \end{figure}
 
-There's a lot of applications which are all based on Machine Learning hence a reason why we should start learning about how Machine Learning Algorithms work and implement our own algorithm to create some innovative product for ourselves or probably just build a better version of Jarvis! 
+There's a lot of Machine Learning based applications hence a reason why we should start learning about how Machine Learning Algorithms work and implement our own algorithms to create some innovative product for ourselves or probably just build a better version of Jarvis! 
  \begin{figure}
  	\centering
  	\includegraphics[width=1\linewidth]{"pic 14"}
- 	\caption{}
+ 	\caption{Application of ML: Fitness bands}
  	\label{fig:pic-14}
  \end{figure}
  
@@ -125,7 +125,7 @@ Machine learning is broadly classified as follows;
 \subsection{Supervised Learning}
 
 This type of learning is used when we have a data with labelled output.
-\\So basically it consist of a target / outcome variable (or dependent variable) which is to be predicted from a given set of independent variables which is nothing but predictors/input variables. Using these set of variables, we generate a function that will map inputs to desired outputs. So whenever the model is given a new set of predictors, based on the function generated during training, it will predict the outcome.\\
+\\So basically it consist of a target/outcome variable (or dependent variable) which is to be predicted from a given set of independent variables which is nothing but predictors/input variables. Using these set of variables, we generate a function that will map inputs to desired outputs. So whenever the model is given a new set of predictors, based on the function generated during training, it will predict the outcome.\\
 
 %This type of learning is used to predict the future outcome based on the historical data.\\ 
 
@@ -139,21 +139,21 @@ To summarise, all data is labelled and the algorithms learn to predict the outpu
 Some common types of problems of classification and regression include Recommendation and Time series prediction respectively.
 \\Some popular algorithms of supervised machine learning algorithms are:
 \begin{itemize}
-	\item \textbf{Linear Regression} used for regression problems.
+	\item \textbf{Linear Regression} used for Regression problems.
 	\item \textbf{Logistic Regression} used for Classification problems.
-	\item \textbf{Decision Tree} used for classification problems.
-	\item \textbf{Random Forest} used for classification and regression problems.
-	\item \textbf{Support Vector Machines} used for classification problems.
+	\item \textbf{Decision Tree} used for Classification problems.
+	\item \textbf{Random Forest} used for Classification and Regression problems.
+	\item \textbf{Support Vector Machines} used for Classification problems.
 	
 \end{itemize}
 
 \subsection{Unsupervised Learning}
- Unlike Supervised Learning, this algorithm does not have any target or outcome variable to predict / estimate.  It is mainly used for clustering into different groups,which can be further used for deriving some useful insights from them .\\
+ Unlike Supervised Learning, this algorithm does not have any target or outcome variable to predict/estimate.  It is mainly used for clustering into different groups, which can be further used for deriving some useful insights from them .\\
 \\In short, Unsupervised learning is where we only have input data (X) and no corresponding output variables(Y).\\
 \\Unsupervised learning problems can be further grouped into clustering and association problems.
 \begin{itemize}
 	\item \textbf{Clustering:} A clustering problem is used to discover the inherent groupings in the data, such as grouping customers based on their choice of purchasing. 
-	\item \textbf{Association:}  An association rule learning problem used to discover rules that describe large portions of your data, such as people that buy X also tend to buy Y.
+	\item \textbf{Association:}  An association rule learning problem used to discover rules that describe large portions of your data, such as people who buy X also tend to buy Y.
 	 
 \end{itemize}
 Some popular examples of unsupervised learning algorithms are:
@@ -167,7 +167,7 @@ Using this algorithm, the machine is trained to make specific decisions. So here
 
 \section{Most popularly used Supervised Algorithms:}
 \subsection{1). Linear Regression:}
-It is used for estimation of real values (cost of houses, number of calls, total sales etc.) based on continuous variable(s). Here, we establish relationship between independent and dependent variables by fitting a best line. This best fit line is known as regression line and represented by a linear equation Y= m *X + c
+It is used for estimation of real values (cost of houses, number of calls, total sales etc.) based on continuous variable(s). Here, we establish relationship between independent and dependent variables by fitting a best line. This best fit line is known as regression line and represented by a linear equation Y= m *X + c.\\
 In this equation:
 \begin{itemize}
 	\item Y – Dependent Variable/Output
@@ -178,12 +178,10 @@ In this equation:
 
 %These coefficients 'm' and 'c' are derived based on minimizing the sum of squared difference of distance between data points and regression line.
 Linear Regression is of mainly two types: \textbf{Simple Linear Regression} and \textbf{Multiple Linear Regression}. Simple Linear Regression is characterized by one independent variable. 
-While Multiple Linear Regression is characterized by multiple independent variables (more than 1).\\
-
+While Multiple Linear Regression is characterized by multiple independent variables (more than 1).\\\\
 \textbf{Basic Syntax of Linear regression for Python and R programmers:}\\
-
-\textbf{**Note:} We will be using Scikit learn, so make sure you have installed Scikit learn library and other necessary libraries like Numpy,Matplotlib.pyplot.\\
-For Windows users,type the below command in your command prompt for installing Scikit-Learn,
+\textit{\textbf{**Note:}} We will be using Scikit learn, so make sure you have installed Scikit learn library and other necessary libraries like Numpy, Matplotlib.pyplot.\\
+Windows users, type the below command in your command prompt for installing Scikit-Learn,
 \begin{lstlisting}
 pip install scikit-learn
 \end{lstlisting}
@@ -214,7 +212,7 @@ print('Coefficient: \n', linear.coef_)
 print('Intercept: \n', linear.intercept_)
 #Predict Output
 predicted= linear.predict(x_test)
-\end{lstlisting}\\
+\end{lstlisting}
 \textbf{R Code:}
 \begin{lstlisting}[language=R]
 #Load Train and Test datasets
@@ -241,13 +239,12 @@ In the code above:
 \subsection{2). Logistic Regression}
  It is used to estimate discrete values like 0/1, yes/no, true/false  based on given set of independent variable(s).\\ 
  %In simple words, it predicts the probability of occurrence of an event by fitting data to a logit function. Hence, it is also known as logit regression.\\
-\textbf{\textit{Important Point:}} Logistic regression is used only for Classification type of problems.\\ 
+\textbf{\textit{Important Point:}} Logistic regression is used only for Classification type of problems.\\\\ 
 %\begin{itemize}
 	%\item It is widely used for classification problems.
 	%\item Logistic regression doesn’t require linear relationship between dependent and independent variables.  It can handle various types of relationships because it applies a non-linear log transformation to the predicted odds ratio.
 	%\item To avoid over fitting and under fitting, we should include all significant variables. A good approach to ensure this practice is to use a step wise method to estimate the logistic regression.
 %\end{itemize}
-
 \textbf{Basic syntax of Logistic Regression for Python and R programmers:}\\
 \\\textbf{Python code:}
 \begin{lstlisting}[language=Python]
@@ -287,8 +284,8 @@ Decision Tree algorithm is mostly used for Classification kind of problems. It w
 	%\item \textbf{Continuous Variable Decision Tree:} Decision Tree has continuous target variable then it is called as Continuous Variable Decision Tree.
 %\end{enumerate}
 
-Example:- Let’s say we have a problem to predict whether a customer will pay his renewal premium with an insurance company (yes/ no). Here we know that income of customer is a significant variable but insurance company does not have income details for all customers. Now, as we know this is an important variable, then we can build a decision tree to predict customer income based on occupation, product and various other variables. In this case, we are predicting values for continuous variable.\\
-\\\textbf{Basic Syntax for Python and R programmers :}\\
+Example:- Let’s say we have a problem to predict whether a customer will pay his renewal premium with an insurance company (yes/no). Here we know that income of customer is a significant variable but insurance company does not have income details for all customers. Now, as we know this is an important variable, then we can build a decision tree to predict customer income based on occupation, product and various other variables. In this case, we are predicting values for continuous variable.\\\\
+\textbf{Basic Syntax for Python and R programmers :}\\
 \\\textbf{Python Code:}
 \begin{lstlisting}[language=Python]
 #Import Library
@@ -304,7 +301,6 @@ model.score(X, y)
 #Predict Output
 predicted= model.predict(x_test)
 \end{lstlisting}
-
 \textbf{R code:}
 \begin{lstlisting}[language=R]
 library(rpart)
@@ -337,7 +333,7 @@ svc = svm.SVC(kernel='rbf', C=1,gamma=0).fit(X, y)
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.9\linewidth]{pic3}
-	\caption{}
+	\caption{SVC plots for different values of gamma}
 	\label{fig:pic3}
 \end{figure}
 
@@ -348,12 +344,12 @@ svc = svm.SVC(kernel='rbf', C=1,gamma=0).fit(X, y)
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.9\linewidth]{"pic 4"}
-	\caption{}
+	\caption{SVC plots for different values of Cost parameter}
 	\label{fig:pic-4}
-\end{figure}\\
+\end{figure}
 \newpage
 \textbf{Basic syntax for Python and R programmers:}\\
-\\\textbf{Python code:}
+\textbf{Python code:}
 \begin{lstlisting}[language=Python]
 #Import Library
 from sklearn import svm
@@ -366,7 +362,6 @@ model.score(X, y)
 #Predict Output
 predicted= model.predict(x_test)
 \end{lstlisting}
-
 \textbf{R code:}
 \begin{lstlisting}[language=R]
 #Library used for svm models is e1071
@@ -379,12 +374,11 @@ summary(fit)
 #Predict Output 
 predicted= predict(fit,x_test)
 \end{lstlisting}
-
 Watch this \href{https://www.youtube.com/watch?v=pS5gXENd3a4}{video} for better understanding this concept.
 
 \subsection{5). Random Forest Algorithm}
 
-Random Forest is capable of performing both regression and classification tasks. It also treats missing values, outlier values and other essential steps required for data exploration.\\
+Random Forest is capable of performing both regression and classification tasks. It also treats missing values, outlier values and other essential steps required for data exploration.\\\\
 \textbf{Basic syntax for Python and R programmers:}\\
 \\\textbf{Python code:}
 \begin{lstlisting}[language=Python]
@@ -415,7 +409,7 @@ predicted= predict(fit,x_test)
 \subsection{Clustering}
 
 In Clustering, data points are divided into a number of groups such that data points in the same groups have similar traits. In simple words, the aim is to segregate groups with similar features/properties and club them into clusters.\\
-\\Though Clustering has many advanced and higher application but let’s understand this with a simple example. Suppose, you are the head of a rental store and wish to understand preferences of your costumers to scale up your business. Is it possible for you to look at details of each costumer and devise a unique business strategy for each one of them? Definitely not. But, what you can do is to cluster all of your costumers into say 10 groups based on their purchasing habits and use a separate strategy for costumers in each of these 10 groups.\\
+\\Though Clustering has many advanced and higher application but let’s understand this with a simple example. Suppose, you are the head of a rental store and wish to understand preferences of your costumers to scale up your business. Is it possible for you to look at details of each costumer and devise a unique business strategy for each one of them? Definitely not. But, what you can do is to cluster all of your costumers into say 10 groups based on their purchasing habits and use a separate strategy for customers in each of these 10 groups.\\
 
 \subsection{Applications of Clustering:}
 
@@ -430,7 +424,7 @@ Clustering has a large number of applications spread across various domains. Som
 	%\item Image Segmentation
 	%\item Anomaly Detection
 \end{enumerate}
-\section{Types of Clustering:}
+\section{Types of Clustering}
 \vspace{3mm}
 Most commonly used Clustering algorithms:\\
 {{\small\textit{**Note that here two of its types have been mentioned but there are other types as well, refer \href{https://home.deib.polimi.it/matteucc/Clustering/tutorial_html/index.html}{this} and \href{https://www.analyticsvidhya.com/blog/2013/11/getting-clustering-right/}{this} for more details.}}
@@ -441,8 +435,8 @@ K-Means is an iterative clustering algorithm that aims to find local maxima in e
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.7\linewidth]{"pic 5"}
-	\caption{}
-	\label{fig:pic-5}
+	\caption{Plot of data points}
+	\label{Plot of data points}
 \end{figure}
 
 \textbf{Step 2:} Specify the number of clusters K. Here for the above Example let's assume K=2.
@@ -453,7 +447,7 @@ On first Iteration: Two cluster centroids are formed (one in Blue colour and oth
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.7\linewidth]{"pic 7"}
-	\caption{}
+	\caption{Clusters formed on first iteration}
 	\label{fig:pic-6}
 \end{figure}
 
@@ -461,7 +455,7 @@ On Second iteration: Cluster centroids move to form more likely classified clust
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.7\linewidth]{"pic 8"}
-	\caption{}
+	\caption{Clusters formed on second iteration}
 	\label{fig:pic-8}
 \end{figure}
 \newpage
@@ -469,7 +463,7 @@ On third iteration: Again the cluster centroids move.
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.7\linewidth]{"pic 9"}
-	\caption{}
+	\caption{Clusters formed on third iteration}
 	\label{fig:pic-9}
 \end{figure}
 
@@ -477,13 +471,13 @@ Fourth Iteration
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.7\linewidth]{"pic 10"}
-	\caption{}
+	\caption{Clusters formed on fourth iteration }
 	\label{fig:pic-9}
 \end{figure}
 
-Similarly, compute for other iteration as well, it's possible that you will reach a stage where even by increasing the iterations, no improvements are possible and which is an indication that we have reached the global optima which means there will be no further changes between two clusters for successive iterations.It will mark the termination of the algorithm.\\
+Similarly, compute for other iteration as well, it's possible that you will reach a stage where even by increasing the iterations, no improvements are possible and which is an indication that we have reached the global optima which means there will be no further changes between two clusters for successive iterations. It will mark the termination of the algorithm.\\
 
-For more information regarding this typ eof algorithm refer \href{https://home.deib.polimi.it/matteucc/Clustering/tutorial_html/kmeans.html}{this link}.
+For more information regarding this type of algorithm refer \href{https://home.deib.polimi.it/matteucc/Clustering/tutorial_html/kmeans.html}{this link}.
 
 \subsection{2). Hierarchial Clustering}
 Hierarchical clustering, as the name suggests is an algorithm that builds hierarchy of clusters. This algorithm starts with all the data points assigned to a cluster of their own. Then two nearest clusters are merged into the same cluster. In the end, this algorithm terminates when there is only a single cluster left.\\
@@ -491,8 +485,24 @@ Hierarchical clustering, as the name suggests is an algorithm that builds hierar
 \href{https://home.deib.polimi.it/matteucc/Clustering/tutorial_html/hierarchical.html}{Here} is some more indepth Information regarding Hierarchial Clustering. 
 
 \section{End Notes}
-In this tutorial we learnt about some basic Machine Learning Algorithms and also several links are mentioned along with corresponding article for more Information. I suggest practice on these algorithms and work on projects and also participate in competitions hosted on \href{https://www.kaggle.com/}{kaggle}, infact you can find millions of data set for practicing on kaggle. Moreover, there is a famous course on Machine Learning taught by \textbf{Prof.Dr.Andrew Ng} on \href{https://www.coursera.org/learn/machine-learning}{Coursera}.He has described each algorithm very briefly and covers almost everything.
-Other resources that I would recommend is a Youtube channel like \href{https://www.youtube.com/user/sentdex}{sentdex}.\\And incase if you are not familiar with Python then go \href{https://www.analyticsvidhya.com/blog/2016/01/complete-tutorial-learn-data-science-python-scratch-2/}{through this}, and also a youtube channel \href{https://www.youtube.com/user/thenewboston}{thenewboston}.\\For mastering in R programming language I would recommend \href{http://www.listendata.com/p/r-programming-tutorials.html}{100 free tutorials for learning R} and \href{https://www.youtube.com/playlist?list=PL6gx4Cwl9DGCzVMGCPi1kwvABu7eWv08P}{R programming tutorial playlist}.This is the best platform to learn Basic and Advanced R. It covers every aspect of data analytics from Data Cleaning, Manipulation, Visualization, Machine Learning Algorithms.
+In this tutorial we learnt about some basic Machine Learning Algorithms and also several links are mentioned along with corresponding article for more information. I suggest practice on these algorithms and work on projects and also participate in competitions hosted on \href{https://www.kaggle.com/}{kaggle}, infact you can find millions of data set for practicing on kaggle. Moreover, there is a famous course on Machine Learning taught by \textbf{Andrew Ng} on \href{https://www.coursera.org/learn/machine-learning}{Coursera}.He has described each algorithm very briefly and covers almost everything.\\
+Other resources that I would recommend is a Youtube channel \href{https://www.youtube.com/user/sentdex}{sentdex}.\\And incase if you are not familiar with Python then go \href{https://www.analyticsvidhya.com/blog/2016/01/complete-tutorial-learn-data-science-python-scratch-2/}{through this}, and also a youtube channel \href{https://www.youtube.com/user/thenewboston}{thenewboston}.\\For mastering in R programming language I would recommend \href{http://www.listendata.com/p/r-programming-tutorials.html}{100 free tutorials for learning R} and \href{https://www.youtube.com/playlist?list=PL6gx4Cwl9DGCzVMGCPi1kwvABu7eWv08P}{R programming tutorial playlist}.This is the best platform to learn Basic and Advanced R. It covers every aspect of data analytics from Data Cleaning, Manipulation, Visualization, Machine Learning Algorithms.
 
+\subsection{References:}
+\begin{itemize}
+	
+	\item\href{https://www.analyticsvidhya.com/blog/2013/11/getting-clustering-right/}{https://www.analyticsvidhya.com/blog/2013/11/getting-clustering-right/}
+	\item \href{ http://www.aihorizon.com/essays/generalai/supervised\textunderscore unsupervised\textunderscore machine\textunderscore learning.htm}{ http://www.aihorizon.com/essays/generalai/supervised\textunderscore unsupervised\textunderscore machine\textunderscore learning.htm}
+	\item\href{https://www.analyticsvidhya.com/blog/2016/11/an-introduction-to-clustering-and-different-methods-of-clustering/}{ https://www.analyticsvidhya.com/blog/2016/11/an-introduction-to-clustering-and-different-methods-of-clustering/}
+	\item\href{https://www.datacamp.com/community/tutorials/machine-learning-python\#gs.4f2UCnU}{https://www.datacamp.com/community/tutorials/machine-learning-python\#gs.4f2UCnU}
+	\item\href{https://www.datacamp.com/community/tutorials/machine-learning-python}{https://www.datacamp.com/community/tutorials/machine-learning-python}
+	\item\href{http://dataconomy.com/2017/03/beginners-guide-machine-learning/}{http://dataconomy.com/2017/03/beginners-guide-machine-learning/}
+	\item\href{https://www.toptal.com/machine-learning/machine-learning-theory-an-introductory-primer}{https://www.toptal.com/machine-learning/machine-learning-theory-an-introductory-primer}
+	\item\href{https://discuss.analyticsvidhya.com/t/decision-tree-with-continuous-variables/201}{https://discuss.analyticsvidhya.com/t/decision-tree-with-continuous-variables/201}
+	\item\href{http://www.listendata.com/p/r-programming-tutorials.html}{http://www.listendata.com/p/r-programming-tutorials.html}
+	\item\href{http://machinelearningmastery.com/start-here/}{http://machinelearningmastery.com/start-here/}
+	\item\href{http://machinelearningmastery.com/self-study-guide-to-machine-learning/}{http://machinelearningmastery.com/self-study-guide-to-machine-learning/}
+	\item\href{https://sites.google.com/site/dataclusteringalgorithms/hierarchical-clustering-algorithm}{https://sites.google.com/site/dataclusteringalgorithms/hierarchical-clustering-algorithm}
+\end{itemize}
 
 \end{document}
