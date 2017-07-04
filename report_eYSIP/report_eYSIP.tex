@@ -80,7 +80,7 @@ contents={\includegraphics{logo}}
 \begin{flushright}
 {\large Sanket Shanbhag \\}
 {\large Supriya Suresh \\}
-{\large Saurav and Naveen \\}
+{\large Saurav, Naveen and Khalid \\}
 {\large Duration of Internship: $ 22/05/2017-07/07/2017 $ \\}
 \end{flushright}
 
@@ -90,7 +90,7 @@ contents={\includegraphics{logo}}
 
 \chapter[Project Tag]{Vegetable Identification Using \\ Transfer Learning}
 \section*{Abstract}
-This project aims to create a system for automatically logging farm produce from the green house at e-Yantra. An image is captured of the produce and this image is fed to a neural network based on the Inception-v3 model by Google. This system then identifies the vegetable and classifies it into different classes it has been trained on. Also, a re-training system is implemented which automatically trains any new images captured and thereby further increasing the accuracy of the system over time.
+This project aims to create a system for automatically logging farm produce from the green house at e-Yantra. An image of the produce is captured and this image is fed to a neural network based on the Inception-v3 model by Google. This system then identifies the vegetable and classifies it into different classes it has been trained on. Also, a re-training system is implemented which automatically trains any new images captured and thereby further increasing the accuracy of the system over time.
 
 \subsection*{Completion status}
 The system has been successfully trained for 18 classes (vegetables) achieving accuracy of 99.5\% on a separate test set. Also a system has been implemented for auto-training any new images captured on the system every 4 days.
@@ -101,7 +101,7 @@ The system has been successfully trained for 18 classes (vegetables) achieving a
   \item Detail of each hardware: \href[page=5]{./datasheet/MPU-9150.pdf}{Datasheet, page 5}, \href{http://www.amazon.in}{Vendor link}, 
   \item Connection diagram
 \end{itemize}
-
+\newpage
 \section{Software used}
 \begin{itemize}
   \item \href{https://www.python.org/downloads/release/python-352/}{Python 3.5.2}
@@ -144,21 +144,34 @@ The \texttt{ghfarm.py} script contained in the \texttt{module\_integration} fold
 \subsection{Auto-Training}
 The \texttt{AutoTrain} folder contains code for running a server to accept images and scripts for adding cron tasks to run the autotraining code every 4 days.
 
-
+\newpage
 \section{Use and Demo}
 Final Setup Image
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.5\linewidth]{"../../Machine Learning Workshop/setup"}
+	\caption{Setup}
+	\label{fig:setup}
+\end{figure}
+
 
 User Instruction for demonstration
 
 \href{http://www.youtube.com}{Youtube Link} of demonstration video 
 
 \section{Future Work}
-What can be done to take this work ahead in future as projects.
-
+This project focussed mainly on vegetables, in future it can be extended to fruits as well resulting in many classes for Identification.
+\newpage
 \section{Bug report and Challenges}
-Any issues in code and hardware.
+**Any issues in code and hardware.**This is to be done.**\\\\
+One of the challenges we faced was lack of proper data for training hence we collected live images from Vegetable Market.\\
+Every Vegetable has different varities so our second challenge was to train our system to as many varities as possible.\\
 
-Any failure or challenges faced during project
+**Or else we can write in bullet format**
+\begin{itemize}
+	\item \textbf{Challenge 1: }Lack of proper data for training hence collected live images of Vegetables from Market
+	\item \textbf{Challenge 2: }Every Vegetable has its own different varities so our second challenge was to train our system to as many varities as possible.
+\end{itemize}
 
 \begin{thebibliography}{li}
 \bibitem{wavelan97}
