@@ -1,0 +1,1 @@
+This folder contains python scripts for a Convolutional Neural Network from scratch as mentioned in the wiki.
