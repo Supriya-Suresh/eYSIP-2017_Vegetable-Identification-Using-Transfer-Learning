@@ -119,10 +119,13 @@ The complete code is available \href{https://github.com/eYSIP-2017/eYSIP-2017_Ve
 \subsection{Downloading and formatting data}
 The folder \texttt{download\_data} contains python scripts and shell scripts for downloading and formatting data from a list of URLS or from \href{http://www.image-net.org/}{ImageNet}. Information on using these scripts can be found in the \href{https://github.com/eYSIP-2017/eYSIP-2017_Vegetable-Identification-Using-Transfer-Learning/wiki/Downloading-and-formatting-data.}{wiki page}.
 
+\subsection{Steps for adding new crop to system}
+Go to download\textunderscoredata/setupdata.py and modify the wnetids global dictionary to include the names of the vegetable and corresponding wnet-id as key-value pairs. This will create a folder for each vegetable with a corresponding text file containing links to all the images.
+
 \subsection{Transfer Learning}
 The code for transfer learning can be found in the \texttt{transfer\_on\_inception\_v3} folder. The \texttt{transferveg.py} file contains the code for running the model.
-We remove the final layer of the Inception-v3 model and add 3 fully connected layers of 4096, 2048, and 1024 nodes with a dropout layer after the 2048-node layer.
-This helps us achieve an accuracy of 99.5\%
+We removed the final layer of the Inception-v3 model and add 3 fully connected layers of 4096, 2048, and 1024 nodes with a dropout layer after the 2048-node layer.
+This helped us achieve an accuracy of 99.5\%
 
 \subsection{Module Integration}
 The \texttt{ghfarm.py} script contained in the \texttt{module\_integration/raspberrypi} folder will run on the raspberry pi on the weighing machine. It interfaces with the server to predict the crop and sends data once the image is taken.
@@ -130,7 +133,6 @@ The \texttt{ghfarm.py} script contained in the \texttt{module\_integration/raspb
 \subsection{Auto-Training}
 The \texttt{AutoTrain} folder contains code for running a server to accept images and scripts for adding cron tasks to run the autotraining code every 4 days.
 
-\newpage
 \section{Use and Demo}
 Final Setup Image
 \begin{figure}[!ht]
@@ -149,7 +151,6 @@ For Retraining and training from scratch, please refer to the \href{https://gith
 \section{Future Work}
 This project focuses mainly on limited number of vegetables mentioned in the \href{https://github.com/eYSIP-2017/eYSIP-2017_Vegetable-Identification-Using-Transfer-Learning/wiki/List-of-Vegetables}{wiki}. In the future it can be extended to include other vegetables and fruits.
 
-\newpage
 \section{Challenges}
 \begin{enumerate}
 	\item Lack of proper training data.
@@ -164,7 +165,7 @@ This project focuses mainly on limited number of vegetables mentioned in the \hr
 	\subitem 1. Variation of light - Dark, less light, normal light, bright day light(like window open).
 	\subitem 2. Variation in Vegetable storage device - zip-lock bag, tray, basket, direct on base-plate of machine.
 	\subitem 3. Variation in ambient environment captured by camera.\\\\\\	
-	  It was observed that the system predicted correct results even when exposed to the above mentioned conditions.
+	  It was observed that the system predicted correct results with pretty good accuracy even when exposed to the above mentioned conditions.
 	  \newpage
 	  \item \Large\textbf{Results for some Test cases were as follows:}
 	  
@@ -178,24 +179,24 @@ This project focuses mainly on limited number of vegetables mentioned in the \hr
 	  \begin{figure}[!ht]
 	  	\centering
 	  	\includegraphics[width=0.5\linewidth]{"lady_finger - light"}
-	  	\caption{Lady finger under bright light condition}\textbf{ Obtained Confidence: 90.93\%}
+	  	\caption{Lady finger under bright light condition}\textbf{ Obtained Confidence: 95.93\%}
 	  	\label{fig:ladyfinger---light}
 	  \end{figure}
   \hfill
 	  \begin{figure}[!ht]
 	  	\centering
 	  	\includegraphics[width=0.5\linewidth]{cucumber-tray}
-	  	\caption{Cucumber on tray}\textbf{ Obtained Confidence: 87.56\%}
+	  	\caption{Cucumber on tray}\textbf{ Obtained Confidence: 99.5\%}
 	  	\label{fig:cucumber-tray}
 	  \end{figure}
   \hfill
 	  \begin{figure}[!ht]
 	  	\centering
 	  	\includegraphics[width=0.5\linewidth]{"tomato - ziplock"}
-	  	\caption{Tomato inside zip-lock}\textbf{ Obtained Confidence: 86.03\%}
+	  	\caption{Tomato inside zip-lock}\textbf{ Obtained Confidence: 92.03\%}
 	  	\label{fig:tomato---ziplock}
 	  \end{figure}
-  \hfill
+  %\hfill
 	  \begin{figure}[!ht]
 	  	\centering
 	  	\includegraphics[width=0.5\linewidth]{"onion - hand"}
@@ -203,20 +204,14 @@ This project focuses mainly on limited number of vegetables mentioned in the \hr
 	  	\label{fig:onion---hand}
 	  \end{figure}
 	  
-	
 \end{itemize}
 
-
-
-
-%\begin{thebibliography}{li}
-%\bibitem{wavelan97}
-%Ad Kamerman and Leo Monteban,
-%{\em WaveLAN-II: A High-Performance Wireless LAN for the Unlicensed band},
-%1997.
-
-%\end{thebibliography}
-
+\newpage
+\section{References}
+\begin{enumerate}
+	\item \href{https://arxiv.org/abs/1512.00567}{Inception v3 model} by Google.
+	\item \href{http://cs231n.github.io/convolutional-networks/}{Architecture of Convolutional Neural Networks} by Stanford.
+\end{enumerate}
 
 \end{document}
 

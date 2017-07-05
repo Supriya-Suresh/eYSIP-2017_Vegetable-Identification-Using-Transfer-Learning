@@ -1,0 +1,16 @@
+\select@language {english}
+\contentsline {subsection}{What is Machine Learning?}{2}{section*.1}
+\contentsline {subsection}{MOTIVATION}{2}{section*.2}
+\contentsline {subsection}{Supervised Learning}{4}{section*.3}
+\contentsline {subsection}{Unsupervised Learning}{4}{section*.4}
+\contentsline {subsection}{Reinforcement Learning}{5}{section*.5}
+\contentsline {subsection}{1). Linear Regression:}{5}{section*.6}
+\contentsline {subsection}{2). Logistic Regression}{6}{section*.7}
+\contentsline {subsection}{3). Decision Tree}{7}{section*.8}
+\contentsline {subsection}{4). Support Vector Machine (SVM)}{8}{section*.9}
+\contentsline {subsection}{5). Random Forest Algorithm}{10}{section*.10}
+\contentsline {subsection}{Clustering}{11}{section*.11}
+\contentsline {subsection}{Applications of Clustering:}{11}{section*.12}
+\contentsline {subsection}{1). K-Means Clustering}{11}{section*.13}
+\contentsline {subsection}{2). Hierarchial Clustering}{14}{section*.14}
+\contentsline {subsection}{References:}{14}{section*.15}
