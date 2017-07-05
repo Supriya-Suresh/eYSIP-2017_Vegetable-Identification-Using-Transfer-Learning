@@ -74,7 +74,7 @@ contents={\includegraphics{logo}}
 %---------------------Title Page------------------------------------------------
 \begin{titlepage}
 \raggedright
-{\Large eYSIP2017\\[1cm]}
+{\Large e-YSIP 2017\\[1cm]}
 {\Huge\scshape Vegetable Identification Using Transfer Learning \\[.1in]}
 \vfill
 \begin{flushright}
@@ -90,17 +90,15 @@ contents={\includegraphics{logo}}
 
 \chapter[Project Tag]{Vegetable Identification Using \\ Transfer Learning}
 \section*{Abstract}
-This project aims to create a system for automatically logging farm produce from the green house at e-Yantra. An image of the produce is captured and this image is fed to a neural network based on the Inception-v3 model by Google. This system then identifies the vegetable and classifies it into different classes it has been trained on. Also, a re-training system is implemented which automatically trains any new images captured and thereby further increasing the accuracy of the system over time.
+This project aims to create a system for automatically logging farm produce from the green house. An image of the produce is captured and this image is fed to a neural network based on the Inception-v3 model provided by \href{https://research.googleblog.com/2016/03/train-your-own-image-classifier-with.html}{Google}. This system then identifies the vegetable and classifies it into different classes(vegetables) it has been trained on. Also, a re-training system is implemented which automatically trains any new images captured and thereby further increasing the accuracy of the system over time.
 
 \subsection*{Completion status}
-The system has been successfully trained for 18 classes (vegetables) achieving accuracy of 99.5\% on a separate test set. Also a system has been implemented for auto-training any new images captured on the system every 4 days.
+The system has been successfully trained for 18 classes (vegetables) achieving accuracy of 99.5\% on a separate test set. New vegetables can also be added easily. Also a system has been implemented for auto-training any new images captured on the system every 4 days.
 
 \section{Hardware parts}
-\begin{itemize}
-  \item List of hardware 
-  \item Detail of each hardware: \href[page=5]{./datasheet/MPU-9150.pdf}{Datasheet, page 5}, \href{http://www.amazon.in}{Vendor link}, 
-  \item Connection diagram
-\end{itemize}
+This project focuses on Machine Learning to identify vegetables, and hardware design is not in the scope of this project. To view the hardware specifications and requirements please refer to \href{https://github.com/eYSIP-2017/eYSIP-2017_Development_of_Web_Interface_for_GH_Farm_Produce}{this} logging project and \href{https://github.com/Ankurrpanwar26/eYSIP-2016-Farm-Produce-Logging-and-Monitoring}{this} project which describes the smart weighing machine
+
+
 \newpage
 \section{Software used}
 \begin{itemize}
@@ -113,18 +111,6 @@ The system has been successfully trained for 18 classes (vegetables) achieving a
   	\texttt{pip3 install -r requirements.txt}
   \end{itemize}
 \end{itemize}
-
-\section{Assembly of hardware}
-Circuit diagram and Steps of assembly of hardware with pictures for each step
-\subsection*{Circuit Diagram}
-Circuit schematic, simplified circuit diagram , block diagram of system
-\subsection*{Step 1}
-Steps for assembling part 1
-\subsection*{Step 2}
-Steps for assembling part 2
-\subsection*{Step 3}
-Steps for assembling part 3
-
 
 
 \section{Software and Code}
@@ -139,7 +125,7 @@ We remove the final layer of the Inception-v3 model and add 3 fully connected la
 This helps us achieve an accuracy of 99.5\%
 
 \subsection{Module Integration}
-The \texttt{ghfarm.py} script contained in the \texttt{module\_integration} folder will run on the raspberry pi on the weighing machine. It interfaces with the server to predict the crop and sends data once the image is taken.
+The \texttt{ghfarm.py} script contained in the \texttt{module\_integration/raspberrypi} folder will run on the raspberry pi on the weighing machine. It interfaces with the server to predict the crop and sends data once the image is taken.
 
 \subsection{Auto-Training}
 The \texttt{AutoTrain} folder contains code for running a server to accept images and scripts for adding cron tasks to run the autotraining code every 4 days.
@@ -155,23 +141,23 @@ Final Setup Image
 %\end{figure}
 
 
-Instructions for using the weighing machine can be found \href{https://github.com/eYSIP-2017/eYSIP-2017_Vegetable-Identification-Using-Transfer-Learning/blob/master/Manual/WeighingMachineManual.pdf}{here}. And here is the \href{http://www.youtube.com}{Youtube Link} of the video demonstration.
+Instructions for using the weighing machine can be found \href{https://github.com/eYSIP-2017/eYSIP-2017_Vegetable-Identification-Using-Transfer-Learning/tree/master/Documentation/Manuals}{here}.
+For Retraining and training from scratch, please refer to the \href{https://github.com/eYSIP-2017/eYSIP-2017_Vegetable-Identification-Using-Transfer-Learning/wiki}{github wiki}.
 
  
 
 \section{Future Work}
-This project focussed mainly on vegetables, in future it can be extended to fruits as well resulting in many classes for Identification.
+This project focuses mainly on vegetables, in future it can be extended to include fruits
 \newpage
 \section{Bug report and Challenges}
-**Any issues in code and hardware.**This is to be done.**\\\\
-One of the challenges we faced was lack of proper data for training hence we collected live images from Vegetable Market.\\
-Every Vegetable has different varities so our second challenge was to train our system to as many varities as possible.\\
+\begin{enumerate}
+	\item Lack of proper training data.
+	\item Every vegetable has different varieties so our second challenge was to find enough training data to encompass all the varieties.
+\end{enumerate}
 
-**Or else we can write in bullet format**
-\begin{itemize}
-	\item \textbf{Challenge 1: }Lack of proper data for training hence collected live images of Vegetables from Market
-	\item \textbf{Challenge 2: }Every Vegetable has its own different varities so our second challenge was to train our system to as many varities as possible.
-\end{itemize}
+\section{Results}
+The system works well while identifying vegetables with a distinct texture and color such as tomato, bittergourd, ladyfinger etc. However, while identifying similar-looking vegetables like fenugreek, basil and coriander, we found that the system tends to make mistakes and have low confidence.
+
 
 \begin{thebibliography}{li}
 \bibitem{wavelan97}
