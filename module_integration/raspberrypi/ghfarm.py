@@ -10,15 +10,7 @@ import sys
 import json
 import urllib.request
 import requests
-
-#NETWORK Constants
-URL = "http://192.168.0.200:8000/machine/"
-PREDICT_URL = "http://192.168.0.200:8000/predict/"
-USER_ID = 1
-PASSWORD = "random"
-imagepath = "/home/pi/ghfarm/images/"
-crop_offline = "/home/pi/ghfarm/crop_offline.txt"
-data_offline = "/home/pi/ghfarm/details.txt"
+import constants
 
 
 #address constant for lines in lcd display
@@ -89,7 +81,7 @@ def takePicture():
     lcd.string("Taking picture...", LINE_1)
     if os.path.exists('/dev/video0'):
         #create image file name with current date
-        imgName = "image-"+ datetime.datetime.now().isoformat()+str(USER_ID)+".jpg"
+        imgName = "image-"+ datetime.datetime.now().isoformat()+str(constants.USER_ID)+".jpg"
         imagepath = "/home/pi/ghfarm/images/%s" %imgName
         #capture image and save in images directory. if image file does not exists in folder then retake the image
         while os.path.isfile(imagepath) == False:
@@ -109,7 +101,7 @@ def storeData(data):
     lcd.string("Weight: "+str(data['weight']), LINE_2)
     lcd.string("CropID: "+str(data['crop_id']), LINE_3)
     lcd.string("FarmID: "+str(data['farmid']), LINE_4)
-    f = open(data_offline,'a')
+    f = open(constants.data_offline,'a')
     t = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     crops = {'weight':data['weight'],'crop_id':data['crop_id'],'time': t, 'imagename':data['imagename'], 'farmid':data['farmid']}
     crop_details = json.dumps(crops)
@@ -123,9 +115,9 @@ def validateCropID():
 
 # Accept a valid crop id as input from the keypad
 def acceptCropID():
-    if os.path.exists(crop_offline):
+    if os.path.exists(constants.crop_offline):
         r = ""
-        with open(crop_offline,"r") as file:
+        with open(constants.crop_offline,"r") as file:
             r  =file.read()
         r = json.loads(r)
         while True:
@@ -133,48 +125,52 @@ def acceptCropID():
             if validateCropID(): # verify crop id
                     return True, cropID
     else:
-        lcd.clear()
-        cropID = ""
-        key = ""
-        time.sleep(0.1)
-        lcd.string(" Enter Crop ID  ", LINE_1)
-        lcd.string("  *- continue   ", LINE_2)
-        lcd.string("#- clear,D- back", LINE_3)
-        #loop until some crop id is entered and * key is pressed. Following loop will run until valid crop id entered
-        while True:
-            while  key != "*":
-                lcd.string(cropID, LINE_4)
-                key = kpad.get_key()
-                if key == '*':
-                    if len(cropID) == 0:
-                        lcd.clear()
-                        lcd.string("Crop ID cant", LINE_1)
-                        lcd.string("be null", LINE_2)
-                        time.sleep(1)
-                        lcd.clear()
-                        lcd.string(" Enter Crop ID  ", LINE_1)
-                        lcd.string("  *- continue   ", LINE_2)
-                        lcd.string("#- clear,D- back", LINE_3)
-                    else:
-                        break
-                elif key == '#':  #for backspacing
-                    if len(cropID) > 0:
-                        cropID = cropID[:-1]
-                    time.sleep(0.1)
-                elif key == 'D':  #return to previous menu
-                        return False, ""
-                elif key.isdigit():
-                    cropID += key
-                    time.sleep(0.2)
-                key = ""
-            if validateCropID(): # verify Crop id
-                    return True, cropID
-            else:
-                lcd.clear()
-                lcd.string("Crop ID is", LINE_1)
-                lcd.string("    Invalid!", LINE_2)
-                lcd.string("Please Try Again", LINE_3)
-                time.sleep(1)
+        return acceptManualCropID()
+
+# Enter crop ID manually
+def acceptManualCropID():
+    lcd.clear()
+    cropID = ""
+    key = ""
+    time.sleep(0.1)
+    lcd.string(" Enter Crop ID  ", LINE_1)
+    lcd.string("  *- continue   ", LINE_2)
+    lcd.string("#- clear,D- back", LINE_3)
+    #loop until some crop id is entered and * key is pressed. Following loop will run until valid crop id entered
+    while True:
+        while  key != "*":
+            lcd.string(cropID, LINE_4)
+            key = kpad.get_key()
+            if key == '*':
+                if len(cropID) == 0:
+                    lcd.clear()
+                    lcd.string("Crop ID cant", LINE_1)
+                    lcd.string("be null", LINE_2)
+                    time.sleep(1)
+                    lcd.clear()
+                    lcd.string(" Enter Crop ID  ", LINE_1)
+                    lcd.string("  *- continue   ", LINE_2)
+                    lcd.string("#- clear,D- back", LINE_3)
+                else:
+                    break
+            elif key == '#':  #for backspacing
+                if len(cropID) > 0:
+                    cropID = cropID[:-1]
+                time.sleep(0.1)
+            elif key == 'D':  #return to previous menu
+                    return False, ""
+            elif key.isdigit():
+                cropID += key
+                time.sleep(0.2)
+            key = ""
+        if validateCropID(): # verify Crop id
+                return True, cropID
+        else:
+            lcd.clear()
+            lcd.string("Crop ID is", LINE_1)
+            lcd.string("    Invalid!", LINE_2)
+            lcd.string("Please Try Again", LINE_3)
+            time.sleep(1)
 
 
 def validateFarmID():
@@ -284,16 +280,16 @@ def predict(data):
     lcd.string("       Asking", LINE_2)
     lcd.string("    Nostradamus", LINE_3)
     lcd.string("   Please wait...", LINE_4)
-    data['user_id']=USER_ID
-    data['password']=PASSWORD
-    with open(imagepath + data['imagename'], 'rb') as img:
+    data['user_id']=constants.USER_ID
+    data['password']=constants.PASSWORD
+    with open(constants.imagepath + data['imagename'], 'rb') as img:
         image = img.read()
         image = str(image,"latin-1")
     data['image']=image
     try:
-        r = requests.post(PREDICT_URL, data=json.dumps(data).encode('utf-8'))
+        r = requests.post(constants.PREDICT_URL, data=json.dumps(data).encode('utf-8'))
         print(r.text)
-        with open(crop_offline,"w") as file:
+        with open(constants.crop_offline,"w") as file:
             file.write(r.text)
         r = json.loads(r.text)
         return True, r[0], r[1], r[2]
@@ -310,15 +306,15 @@ def send_all_data(data):
     lcd.string("CropID: "+str(data['crop_id']), LINE_3)
     lcd.string("FarmID: "+str(data['farmid']), LINE_4)
     time.sleep(1)
-    data['user_id']=USER_ID
-    data['password']=PASSWORD
+    data['user_id']=constants.USER_ID
+    data['password']=constants.PASSWORD
     data['time']= datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    with open(imagepath + data['imagename'], 'rb') as img:
+    with open(constants.imagepath + data['imagename'], 'rb') as img:
         image = img.read()
         image = str(image,"latin-1")
     data['image']=image
     try:
-        r = requests.post(URL, data=json.dumps(data))
+        r = requests.post(constants.URL, data=json.dumps(data))
         print(r.text)
         if(r.text != "Done"):
             storeData(data)
@@ -391,23 +387,40 @@ def show_choices(names,percentages,primary_keys,display_percentages=True,short_n
                 elif curr_start_idx >= 1:
                     curr_start_idx = (curr_start_idx - 1)
                 break
+            
+            if key == 'A':
+                while True:
+                    cropIDAccepted, pk_manual =  acceptManualCropID()
+                    if cropIDAccepted:
+                        return pk_manual
+                    else:
+                        return show_choices(names,percentages,primary_keys)
                 
 
 # Display the prediction on the screen and change is asked to.
 def show_prediction(names, percentages,primary_keys):
     lcd.clear()
     time.sleep(0.1)
-    # s = ("Confidence: {:05.2f}".format(percentages[0]*100)) + '%'
-    lcd.string("A to enter manually",LINE_4)
+    s = ("Confidence: {:05.2f}".format(percentages[0]*100)) + '%'
+    lcd.string("A to enter manually",LINE_2)
     lcd.string(names[0], LINE_1)
-    lcd.string("* to continue", LINE_2)
-    lcd.string("# to change", LINE_3)
+    lcd.string(s,LINE_2)
+    lcd.string("A -> enter manually",LINE_3)
+    lcd.string("*->next, #->change", LINE_4)
+    #lcd.string("# to change", LINE_4)
     key =""
     while True:
         if key == '*':
             return primary_keys[0]
         if key == '#':
             return show_choices(names,percentages,primary_keys)
+        if key == 'A':
+            while True:
+                cropIDAccepted, pk_manual =  acceptManualCropID()
+                if cropIDAccepted:
+                    return pk_manual
+                else:
+                    return show_prediction(names,percentages,primary_keys)
         key = kpad.get_key()
 
 def init():
@@ -449,7 +462,7 @@ try :
                     break
             if stage==2:
                 print("Trying to Connect")
-                if is_connected(PREDICT_URL):
+                if is_connected(constants.PREDICT_URL):
                     print("Calling Predict")
                     success, names, percentages, primary_keys = predict(data)
                     data['crop_id'] = primary_keys[0]
@@ -474,7 +487,7 @@ try :
                             continue
                 stage += 1
             if stage==3:
-                if is_connected(URL):
+                if is_connected(constants.URL):
                     print("Sending Data")
                     send_all_data(data)
                 else:

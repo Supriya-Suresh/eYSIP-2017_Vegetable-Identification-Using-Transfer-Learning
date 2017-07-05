@@ -1,0 +1,1 @@
+This folder contains scripts for Raspberry PI contained in the weighing machine.
