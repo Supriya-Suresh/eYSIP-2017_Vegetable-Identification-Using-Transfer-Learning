@@ -96,7 +96,7 @@ This project aims to create a system for automatically logging farm produce from
 The system has been successfully trained for 18 classes (vegetables) achieving accuracy of 99.5\% on a separate test set. New vegetables can also be added easily. Also a system has been implemented for auto-training any new images captured on the system every 4 days.
 
 \section{Hardware parts}
-This project focuses on Machine Learning to identify vegetables, and hardware design is not in the scope of this project. To view the hardware specifications and requirements please refer to \href{https://github.com/eYSIP-2017/eYSIP-2017_Development_of_Web_Interface_for_GH_Farm_Produce}{this} logging project and \href{https://github.com/Ankurrpanwar26/eYSIP-2016-Farm-Produce-Logging-and-Monitoring}{this} project which describes the smart weighing machine
+This project focuses on Machine Learning to identify vegetables, and hardware design is not in the scope of this project. To view the hardware specifications and requirements please refer to \href{https://github.com/eYSIP-2017/eYSIP-2017_Development_of_Web_Interface_for_GH_Farm_Produce}{this} logging project and \href{https://github.com/Ankurrpanwar26/eYSIP-2016-Farm-Produce-Logging-and-Monitoring}{this} project which describes the smart weighing machine.
 
 
 \newpage
@@ -147,16 +147,64 @@ For Retraining and training from scratch, please refer to the \href{https://gith
  
 
 \section{Future Work}
-This project focuses mainly on limited number of vegetables like lady finger,tomato,fenugreek,bitter gourd,bottle gourd,cabbage,cauliflower and many more, in future it can be extended to include other vegetables and fruits.
+This project focuses mainly on limited number of vegetables mentioned in the \href{https://github.com/eYSIP-2017/eYSIP-2017_Vegetable-Identification-Using-Transfer-Learning/wiki/List-of-Vegetables}{wiki}. In the future it can be extended to include other vegetables and fruits.
 \newpage
-\section{Bug report and Challenges}
+\section{Challenges}
 \begin{enumerate}
 	\item Lack of proper training data.
 	\item Every vegetable has different varieties so our second challenge was to find enough training data to encompass all the varieties.
 \end{enumerate}
 
 \section{Results}
-The system works well while identifying vegetables with a distinct texture and color such as tomato, bittergourd, ladyfinger etc. However, while identifying similar-looking vegetables like fenugreek, basil and coriander, we found that the system tends to make mistakes and have low confidence.
+\begin{itemize}
+	\item The system works well while identifying vegetables with a distinct texture and color such as tomato, bittergourd, ladyfinger etc. However, while identifying similar-looking vegetables like fenugreek, basil and coriander, we found that the system tends to make mistakes and/or have low confidence.
+	\item Vegetables were tested on the following test cases:
+	\subitem 1. Variation of light - Dark, less light, normal light, bright day light(like window open).
+	\subitem 2. Variation in Vegetable storage device - zip-lock bag, tray, basket, direct on base-plate of machine.
+	\subitem 3. Variation in ambient environment captured by camera.\\\\\\	
+	  It was observed that the system predicted correct results even when exposed to the above mentioned conditions.
+	  \newpage
+	  \item \Large\textbf{Results for some Test cases were as follows:}
+	  
+	  \begin{figure}[!ht]
+	  	\centering
+	  	\includegraphics[width=0.5\linewidth]{brinjal-dark}
+	  	\caption{Brinjal under dark ligt condition} \textbf{Obtained Confidence: 92.08\%}
+	  	\label{fig:brinjal-dark}
+	  \end{figure}
+	 \hfill
+	  \begin{figure}[!ht]
+	  	\centering
+	  	\includegraphics[width=0.5\linewidth]{"lady_finger - light"}
+	  	\caption{Lady finger under bright light condition}\textbf{ Obtained Confidence: 90.93\%}
+	  	\label{fig:ladyfinger---light}
+	  \end{figure}
+  \hfill
+	  \begin{figure}[!ht]
+	  	\centering
+	  	\includegraphics[width=0.5\linewidth]{cucumber-tray}
+	  	\caption{Cucumber on tray}\textbf{ Obtained Confidence: 87.56\%}
+	  	\label{fig:cucumber-tray}
+	  \end{figure}
+  \hfill
+	  \begin{figure}[!ht]
+	  	\centering
+	  	\includegraphics[width=0.5\linewidth]{"tomato - ziplock"}
+	  	\caption{Tomato inside zip-lock}\textbf{ Obtained Confidence: 86.03\%}
+	  	\label{fig:tomato---ziplock}
+	  \end{figure}
+  \hfill
+	  \begin{figure}[!ht]
+	  	\centering
+	  	\includegraphics[width=0.5\linewidth]{"onion - hand"}
+	  	\caption{Onion in ambient conditon}\textbf{ Obtained Confidence: 93.00\%}
+	  	\label{fig:onion---hand}
+	  \end{figure}
+	  
+	
+\end{itemize}
+
+
 
 
 %\begin{thebibliography}{li}
