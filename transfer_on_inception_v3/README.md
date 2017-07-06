@@ -1,5 +1,5 @@
 This folder contains the files for performing transfer learning.
-### cache.py
+## cache.py
 Contains code for caching the images on disk to avoid recomputing everytime on RAM.
 
 ## dataset.py
