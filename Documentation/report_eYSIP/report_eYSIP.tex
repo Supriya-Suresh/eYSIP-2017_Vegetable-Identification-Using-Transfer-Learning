@@ -120,9 +120,6 @@ The complete code is available \href{https://github.com/eYSIP-2017/eYSIP-2017_Ve
 \subsection{Downloading and formatting data}
 The folder \texttt{download\_data} contains python scripts and shell scripts for downloading and formatting data from a list of URLS or from \href{http://www.image-net.org/}{ImageNet}. Information on using these scripts can be found in the \href{https://github.com/eYSIP-2017/eYSIP-2017_Vegetable-Identification-Using-Transfer-Learning/wiki/Downloading-and-formatting-data.}{wiki page}.
 
-\subsection{Steps for adding new crop to system}
-Go to download\textunderscore data/setupdata.py and modify the wnetids global dictionary to include the names of the vegetable and corresponding wnet-id as key-value pairs. This will create a folder for each vegetable with a corresponding text file containing links to all the images.
-
 \subsection{Transfer Learning}
 The code for transfer learning can be found in the \texttt{transfer\_on\_inception\_v3} folder. The \texttt{transferveg.py} file contains the code for running the model.
 We removed the final layer of the Inception-v3 model and add 3 fully connected layers of 4096, 2048, and 1024 nodes with a dropout layer after the 2048-node layer.
@@ -133,6 +130,9 @@ The \texttt{ghfarm.py} script contained in the \texttt{module\_integration/raspb
 
 \subsection{Auto-Training}
 The \texttt{AutoTrain} folder contains code for running a server to accept images and scripts for adding cron tasks to run the autotraining code every 4 days.
+
+\subsection{Steps for adding new crop to system}
+Refer to the logging project \href{https://github.com/eYSIP-2017/eYSIP-2017_Development_of_Web_Interface_for_GH_Farm_Produce}{here} and add a new crop to the database from the admin panel. Create a folder with the name as \texttt{short\_name} as you defined in the database. Put the training images in this folder. Also, create a folder called \texttt{test} inside the folder with the \texttt{short\_name} and add a few images for testing. Repeat this process for as many crops as you want to add to the system. All these folders should be placed in a top-level folder called \texttt{veg} and \texttt{veg} should be placed inside the \texttt{transfer\_on\_inception\_v3} folder. Running the \texttt{transferveg.py} script now will include your newly created crops in the checkpoints file.This entire process is also documented \href{https://github.com/eYSIP-2017/eYSIP-2017_Vegetable-Identification-Using-Transfer-Learning/wiki/Transfer-Learning}{here}.
 
 \section{Use and Demo}
 Final Setup Image
@@ -196,13 +196,6 @@ This project focuses mainly on limited number of vegetables mentioned in the \hr
 	  	\includegraphics[width=0.5\linewidth]{"tomato - ziplock"}
 	  	\caption{Tomato inside zip-lock}\textbf{ Obtained Confidence: 92.03\%}
 	  	\label{fig:tomato---ziplock}
-	  \end{figure}
-  %\hfill
-	  \begin{figure}[!ht]
-	  	\centering
-	  	\includegraphics[width=0.5\linewidth]{"onion - hand"}
-	  	\caption{Onion in ambient conditon}\textbf{ Obtained Confidence: 93.00\%}
-	  	\label{fig:onion---hand}
 	  \end{figure}
 	  
 \end{itemize}
