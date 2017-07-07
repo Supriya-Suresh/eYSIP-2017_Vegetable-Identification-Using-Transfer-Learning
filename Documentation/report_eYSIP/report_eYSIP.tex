@@ -109,7 +109,8 @@ This project focuses on Machine Learning to identify vegetables, and hardware de
   \item Installation Steps:
   \begin{itemize}
   	\item Open a terminal in the project base folder and type: \\
-  	\texttt{pip3 install -r requirements.txt}
+  	\texttt{pip3 install -r requirements.txt} \\
+  	(You might need to use sudo for this step.)
   \end{itemize}
 \end{itemize}
 
@@ -118,7 +119,7 @@ This project focuses on Machine Learning to identify vegetables, and hardware de
 The complete code is available \href{https://github.com/eYSIP-2017/eYSIP-2017_Vegetable-Identification-Using-Transfer-Learning}{here}. It is divided into various folders each with a self contained module of the project.
 
 \subsection{Downloading and formatting data}
-The folder \texttt{download\_data} contains python scripts and shell scripts for downloading and formatting data from a list of URLS or from \href{http://www.image-net.org/}{ImageNet}. Information on using these scripts can be found in the \href{https://github.com/eYSIP-2017/eYSIP-2017_Vegetable-Identification-Using-Transfer-Learning/wiki/Downloading-and-formatting-data.}{wiki page}.
+The folder \texttt{download\_data} contains python scripts and shell scripts for downloading and formatting data from a list of URLS or from \href{http://www.image-net.org/}{ImageNet}. Information on using these scripts can be found in the \href{https://github.com/eYSIP-2017/eYSIP-2017_Vegetable-Identification-Using-Transfer-Learning/wiki/Downloading-and-formatting-data.}{wiki page}. The data collected by us is present on the Eyantra ML Box in the \texttt{weighingmachine} user account.
 
 \subsection{Transfer Learning}
 The code for transfer learning can be found in the \texttt{transfer\_on\_inception\_v3} folder. The \texttt{transferveg.py} file contains the code for running the model.
@@ -144,7 +145,7 @@ Final Setup Image
 \end{figure}
 
 
-Instructions for using the weighing machine can be found \href{https://github.com/eYSIP-2017/eYSIP-2017_Vegetable-Identification-Using-Transfer-Learning/tree/master/Documentation/Manuals}{here}.\\
+Instructions for using the weighing machine can be found \href{https://github.com/eYSIP-2017/eYSIP-2017_Vegetable-Identification-Using-Transfer-Learning/tree/master/Documentation/Manuals}{here} and video demonstration can be found \href{https://www.youtube.com/watch?v=pK54FPOAd_Q}{here}.
 For Retraining and training from scratch, please refer to the \href{https://github.com/eYSIP-2017/eYSIP-2017_Vegetable-Identification-Using-Transfer-Learning/wiki}{github wiki}.
 
  
@@ -197,13 +198,7 @@ This project focuses mainly on limited number of vegetables mentioned in the \hr
 	  	\caption{Tomato inside zip-lock}\textbf{ Obtained Confidence: 92.03\%}
 	  	\label{fig:tomato---ziplock}
 	  \end{figure}
-  \hfill
-  \begin{figure}[!ht]
-  	\centering
-  	\includegraphics[width=0.5\linewidth]{"onion - hand"}
-  	\caption{Onion kept in ambient environment}\textbf{Obtained Confidence: 98.4\%}
-  	\label{fig:onion---hand}
-  \end{figure}
+
 	  
 \end{itemize}
 
