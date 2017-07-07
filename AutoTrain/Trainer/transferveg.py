@@ -14,8 +14,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 logging.basicConfig(filename='/home/weighingscale/AutoTrain/Logs/log.txt',level=logging.DEBUG,filemode='a+',format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 # Server username
-USERNAME = 'user'
-SERVER_IP = 'http://store.k-yantra.org'
+SERVER_SSH = 'greenhouse@k-yantra.org'
 SERVER_DIR = '/var/www/Ghfarm/django/autotrain/'
 
 # Directories

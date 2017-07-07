@@ -1,7 +1,7 @@
 import subprocess
 import sys
 SERVER_SSH = 'greenhouse@k-yantra.org'
-SERVER_DIR = '/var/www/Ghfarm/django/Autotrain/'
+SERVER_DIR = '/var/www/Ghfarm/django/autotrain/'
 LOCAL_DIR = '/home/weighingscale/AutoTrain/Images/'
 
 sync_str = 'rsync -auvz ' + SERVER_SSH + ':' + SERVER_DIR + ' ' + LOCAL_DIR
