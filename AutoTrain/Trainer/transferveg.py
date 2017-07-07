@@ -11,17 +11,17 @@ from dataset import load_cached
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-logging.basicConfig(filename='/home/sanket/Desktop/AutoTrain/Logs/log.txt',level=logging.DEBUG,filemode='a+',format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+logging.basicConfig(filename='/home/weighingscale/AutoTrain/Logs/log.txt',level=logging.DEBUG,filemode='a+',format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 # Server username
 USERNAME = 'user'
-SERVER_IP = '192.168.1.1'
-SERVER_DIR = '/home/server/django/'
+SERVER_IP = 'http://store.k-yantra.org'
+SERVER_DIR = '/var/www/Ghfarm/django/autotrain/'
 
 # Directories
-data_dir = "/home/sanket/Desktop/AutoTrain/Images/"
-save_dir = '/home/sanket/Desktop/AutoTrain/checkpoints'
-cache_dir = '/home/sanket/Desktop/AutoTrain/cache/'
+data_dir = "/home/weighingscale/AutoTrain/Images/"
+save_dir = '/home/weighingscale/AutoTrain/checkpoints'
+cache_dir = '/home/weighingscale/AutoTrain/cache/'
 cache_path = os.path.join(save_dir,'veg.pkl')
 
 all_dirs = [save_dir,cache_dir]
