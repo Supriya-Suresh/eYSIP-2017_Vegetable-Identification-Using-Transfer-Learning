@@ -428,6 +428,7 @@ Clustering has a large number of applications spread across various domains. Som
 \vspace{3mm}
 Most commonly used Clustering algorithms:\\
 {{\small\textit{**Note that here two of its types have been mentioned but there are other types as well, refer \href{https://home.deib.polimi.it/matteucc/Clustering/tutorial_html/index.html}{this} and \href{https://www.analyticsvidhya.com/blog/2013/11/getting-clustering-right/}{this} for more details.}}
+	
 \subsection{1). K-Means Clustering}
 K-Means is an iterative clustering algorithm that aims to find local maxima in each iteration. This algorithm works in the folowing steps :
 \newpage
@@ -484,9 +485,112 @@ Hierarchical clustering, as the name suggests is an algorithm that builds hierar
 
 \href{https://home.deib.polimi.it/matteucc/Clustering/tutorial_html/hierarchical.html}{Here} is some more indepth Information regarding Hierarchial Clustering. 
 
+\newpage
+\section{Project}
+
+We will now be working on famous Dataset \textbf{"MNSIT"} for Digit Recognition.
+MNSIT dataset consist of images of handwritten digits and each image has its label. We will try predicting digits using Supervised Algorithm like Support Vector Machine (SVM).\\
+
+Python script for predicting digits is as follows:
+\begin{lstlisting}[language=Python]
+from sklearn import datasets
+
+# Load in the `digits` data
+digits = datasets.load_digits()
+
+# Print the `digits` data
+print(digits)
+
+# Get the keys of the `digits` data
+print(digits.keys)
+# Print out the data
+print(digits.data)
+
+# Print out the target values
+print(digits.target)
+
+# Print out the description of the `digits` data
+print(digits.DESCR)
+
+print(len(digits.data))
+
+# Split the data into training and test sets
+X_train, X_test, y_train, y_test, images_train, images_test = train_test_split(digits.data, digits.target, digits.images, test_size=0.25, random_state=42)
+
+# Import the `svm` model
+from sklearn import svm
+# Import matplotlib
+import matplotlib.pyplot as plt
+
+
+# Create the SVC model, cost function taken is 100
+svc_model = svm.SVC(gamma=0.001, C=100., kernel='linear')
+
+# Fit the data to the SVC model
+svc_model.fit(X_train, y_train)
+
+# Apply the classifier to the test data, and view the accuracy score
+print(svc_model.score(X_test, y_test))
+
+# Train and score a new classifier with the grid search parameters
+print(svm.SVC(C=10, kernel='rbf', gamma=0.001).fit(X_train, y_train).score(X_test, y_test))
+
+
+# Assign the predicted values to `predicted`
+predicted = svc_model.predict(X_test)
+
+# Zip together the `images_test` and `predicted` values in `images_and_predictions`
+images_and_predictions = list(zip(images_test, predicted))
+
+# For the first 4 elements in `images_and_predictions`
+for index, (image, prediction) in enumerate(images_and_predictions[:4]):
+# Initialize subplots in a grid of 1 by 4 at positions i+1
+plt.subplot(1, 4, index + 1)
+# Don't show axes
+plt.axis('off')
+# Display images in all subplots in the grid
+plt.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
+# Add a title to the plot
+plt.title('Predicted: ' + str(prediction))
+
+# Show the plot
+plt.show()
+
+# Print the classification report of `y_test` and `predicted`
+print(metrics.classification_report(y_test, predicted))
+
+# Print the confusion matrix of `y_test` and `predicted`
+print(metrics.confusion_matrix(y_test, predicted))
+
+# Create an isomap and fit the `digits` data to it
+X_iso = Isomap(n_neighbors=10).fit_transform(X_train)
+
+# Compute cluster centers and predict cluster index for each sample
+predicted = svc_model.predict(X_train)
+
+# Create a plot with subplots in a grid of 1X2
+fig, ax = plt.subplots(1, 2, figsize=(8, 4))
+
+# Adjust the layout
+fig.subplots_adjust(top=0.85)
+
+# Add scatterplots to the subplots
+ax[0].scatter(X_iso[:, 0], X_iso[:, 1], c=predicted)
+ax[0].set_title('Predicted labels')
+ax[1].scatter(X_iso[:, 0], X_iso[:, 1], c=y_train)
+ax[1].set_title('Actual Labels')
+
+
+# Add title
+fig.suptitle('Predicted versus actual labels', fontsize=14, fontweight='bold')
+
+# Show the plot
+plt.show()
+\end{lstlisting}
+
 \section{End Notes}
 In this tutorial we learnt about some basic Machine Learning Algorithms and also several links are mentioned along with corresponding article for more information. I suggest practice on these algorithms and work on projects and also participate in competitions hosted on \href{https://www.kaggle.com/}{kaggle}, infact you can find millions of data set for practicing on kaggle. Moreover, there is a famous course on Machine Learning taught by \textbf{Andrew Ng} on \href{https://www.coursera.org/learn/machine-learning}{Coursera}.He has described each algorithm very briefly and covers almost everything.\\
-Other resources that I would recommend is a Youtube channel \href{https://www.youtube.com/user/sentdex}{sentdex}.\\And incase if you are not familiar with Python then go \href{https://www.analyticsvidhya.com/blog/2016/01/complete-tutorial-learn-data-science-python-scratch-2/}{through this}, and also a youtube channel \href{https://www.youtube.com/user/thenewboston}{thenewboston}.\\For mastering in R programming language I would recommend \href{http://www.listendata.com/p/r-programming-tutorials.html}{100 free tutorials for learning R} and \href{https://www.youtube.com/playlist?list=PL6gx4Cwl9DGCzVMGCPi1kwvABu7eWv08P}{R programming tutorial playlist}.This is the best platform to learn Basic and Advanced R. It covers every aspect of data analytics from Data Cleaning, Manipulation, Visualization, Machine Learning Algorithms.
+Other resources that I would recommend is a Youtube channel \href{https://www.youtube.com/user/sentdex}{sentdex}.\\And incase if you are not familiar with Python then go \href{https://www.analyticsvidhya.com/blog/2016/01/complete-tutorial-learn-data-science-python-scratch-2/}{through this}, and also a youtube channel \href{https://www.youtube.com/user/thenewboston}{thenewboston}.\\For mastering in R programming language I would recommend \href{http://www.listendata.com/p/r-programming-tutorials.html}{100 free tutorials for learning R} and \href{https://www.youtube.com/playlist?list=PL6gx4Cwl9DGCzVMGCPi1kwvABu7eWv08P}{R programming tutorial playlist}.This is the best platform to learn Basic and Advanced R. It covers every aspect of data analytics from Data Cleaning, Manipulation, Visualization, Machine Learning Algorithms.\\\\\\
 
 \subsection{References:}
 \begin{itemize}

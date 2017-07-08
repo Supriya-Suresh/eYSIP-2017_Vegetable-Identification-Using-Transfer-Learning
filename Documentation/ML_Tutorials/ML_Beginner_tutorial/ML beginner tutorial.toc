@@ -13,4 +13,4 @@
 \contentsline {subsection}{Applications of Clustering:}{11}{section*.12}
 \contentsline {subsection}{1). K-Means Clustering}{11}{section*.13}
 \contentsline {subsection}{2). Hierarchial Clustering}{14}{section*.14}
-\contentsline {subsection}{References:}{14}{section*.15}
+\contentsline {subsection}{References:}{17}{section*.15}

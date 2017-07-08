@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6100) (preloaded format=pdflatex 2017.1.14)  5 JUL 2017 16:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6100) (preloaded format=pdflatex 2017.1.14)  8 JUL 2017 11:40
 entering extended mode
 **"./ML beginner tutorial.tex"
 ("ML beginner tutorial.tex"
@@ -1146,48 +1146,68 @@ Underfull \hbox (badness 10000) in paragraph at lines 483--484
 
  []
 
+[14]
+Underfull \hbox (badness 10000) in paragraph at lines 490--492
 
-Overfull \hbox (63.12083pt too wide) in paragraph at lines 495--496
+ []
+
+[15] [16]
+Underfull \hbox (badness 10000) in paragraph at lines 591--593
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 591--593
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 591--593
+
+ []
+
+
+Overfull \hbox (63.12083pt too wide) in paragraph at lines 598--599
 [][][]\OT1/ptm/m/n/12 http://www.aihorizon.com/essays/generalai/supervised[]uns
 upervised[]machine[]learning.htm[][] 
  []
 
 
-Overfull \hbox (18.46964pt too wide) in paragraph at lines 496--497
+Overfull \hbox (18.46964pt too wide) in paragraph at lines 599--600
 [][][]\OT1/ptm/m/n/12 https://www.analyticsvidhya.com/blog/2016/11/an-introduct
 ion-to-clustering-and-
  []
 
 
-Overfull \hbox (46.74121pt too wide) in paragraph at lines 497--498
+Overfull \hbox (46.74121pt too wide) in paragraph at lines 600--601
 [][][]\OT1/ptm/m/n/12 https://www.datacamp.com/community/tutorials/machine-lear
 ning-python#gs.4f2UCnU[][] 
  []
 
-[14]
-Overfull \hbox (27.81726pt too wide) in paragraph at lines 500--501
+
+Overfull \hbox (27.81726pt too wide) in paragraph at lines 603--604
 [][][]\OT1/ptm/m/n/12 https://www.toptal.com/machine-learning/machine-learning-
 theory-an-introductory-
  []
 
 
-Overfull \hbox (15.61263pt too wide) in paragraph at lines 501--502
+Overfull \hbox (15.61263pt too wide) in paragraph at lines 604--605
 [][][]\OT1/ptm/m/n/12 https://discuss.analyticsvidhya.com/t/decision-tree-with-
 continuous-variables/201[][] 
  []
 
 
-Overfull \hbox (41.2435pt too wide) in paragraph at lines 505--506
+Overfull \hbox (41.2435pt too wide) in paragraph at lines 608--609
 [][][]\OT1/ptm/m/n/12 https://sites.google.com/site/dataclusteringalgorithms/hi
 erarchical-clustering-algorithm[][] 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 508.
-[15]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 508.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 615.
+[17]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 615.
  ("ML beginner tutorial.aux")
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 508.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 508.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 615.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 615.
 Package rerunfilecheck Info: File `"ML beginner tutorial".out' has not changed.
 
 (rerunfilecheck)             Checksum: 086296315E545A92B2F0BF0AA862E2B8;890.
@@ -1195,20 +1215,20 @@ Package rerunfilecheck Info: File `"ML beginner tutorial".out' has not changed.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 508.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 615.
  )
 (\end occurred inside a group at level 1)
 
 ### simple group (level 1) entered at line 430 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 10068 strings out of 493333
- 142979 string characters out of 3136199
- 357449 words of memory out of 3000000
- 13235 multiletter control sequences out of 15000+200000
+ 10209 strings out of 493333
+ 145090 string characters out of 3136199
+ 397449 words of memory out of 3000000
+ 13279 multiletter control sequences out of 15000+200000
  28952 words of font info for 64 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 29i,6n,42p,883b,2021s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,6n,42p,889b,2021s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/sathish/Desktop/LaTeX/Portable LaTeXCH2017/texmfs/ins
 tall/fonts/enc/dvips/base/8r.enc}<C:/Users/sathish/Desktop/LaTeX/Portable LaTeX
 CH2017/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/sathi
@@ -1220,9 +1240,9 @@ h/Desktop/LaTeX/Portable LaTeXCH2017/texmfs/install/fonts/type1/urw/times/utmbi
 8a.pfb><C:/Users/sathish/Desktop/LaTeX/Portable LaTeXCH2017/texmfs/install/font
 s/type1/urw/times/utmr8a.pfb><C:/Users/sathish/Desktop/LaTeX/Portable LaTeXCH20
 17/texmfs/install/fonts/type1/urw/times/utmri8a.pfb>
-Output written on "ML beginner tutorial.pdf" (15 pages, 155698 bytes).
+Output written on "ML beginner tutorial.pdf" (17 pages, 178160 bytes).
 PDF statistics:
- 388 PDF objects out of 1000 (max. 8388607)
- 177 named destinations out of 1000 (max. 500000)
+ 512 PDF objects out of 1000 (max. 8388607)
+ 274 named destinations out of 1000 (max. 500000)
  121 words of extra memory for PDF output out of 10000 (max. 10000000)
 
